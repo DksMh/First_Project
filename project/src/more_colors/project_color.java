@@ -1,4 +1,4 @@
-package colors;
+package more_colors;
 
 public class project_color {
 	// »ö±ò »ó¼ö
