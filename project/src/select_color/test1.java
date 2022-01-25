@@ -13,13 +13,12 @@ public class test1 {
 	static String[] cs = { "RED", "BLUE", "YELLOW", "ORANGE" };
 
 	// 색의 배열
-	static int[] arrBtn = new int[4]; // 버튼의 배열
+	static int[] arrBtn = new int[3]; // 버튼의 배열
 	static int[] arrTxt = new int[4]; // 글자의 배열
 
 	static int ansColor; // 정답(글자와 버튼색이 같음)
 	static int ansLoc; // 정답위치(정답위치가 일정함을 방지하기위해서)
-	
-	static int a =0; // 정답저장하는 값
+
 	static int btn1; // 정답이 아닌 위치버튼
 	static int btn2;
 
@@ -41,41 +40,47 @@ public class test1 {
 	public static void colorTxt() {
 		for (int i = 0; i < 1; i++) {
 			arrTxt[i] = (int) (Math.random() * 4);
-			System.out.println("arrTxt[i] "+arrTxt[i]);
+			System.out.println("arrTxt[i] " + arrTxt[i]);
 			ansColor = arrTxt[i];
 		}
 	}
-	
+
 	// 위치선정하기
 	public static void location() {
 		ansLoc = (int) (Math.random() * 3); // 저장위치 랜덤 돌리기
 		System.out.println("ansLoc : " + ansLoc); // 저장위치 확인 용도
-		
-		for (int i = 0; i < arrBtn.length; i++) {
-			// 정답의 위치를 선정하기위한 부분
-			if (ansLoc == i) {
-				arrBtn[i] = ansColor; // 정답위치 설정
-				a = i;
-			} else {
-//				System.out.println("else arrBtn");
-			}
-		}
+
+		arrBtn[ansLoc] = ansColor;
 	}
 
 	// 버튼 2개의 색 랜덤으로 돌리기
 	public static void button() {
 		for (int i = 0; i < arrBtn.length; i++) {
 			// 정답을 제외한 버튼의 색깔지정하는 부분
-			if(arrBtn[i] == arrBtn[a]) {
+			if (i == ansLoc) {
 				continue;
 			}
-			arrBtn[i] = (int) (Math.random() * 4); // 0~3
-			System.out.print(arrBtn[i] + " ");
-//			if(ansColor == arrBtn[i]) {
-//				arrBtn[i] = (int) (Math.random() * 4); // 0~3
-//			}
+
+			int a = (int) (Math.random() * 4);
+
+			if (ansColor == a) {
+				i--;
+				continue;
+			}
+			arrBtn[i] = a;
+			for (int j = 0; j < i; j++) {
+				if (arrBtn[j] == arrBtn[i]) {
+					i--;
+					continue;
+				}
+			}
+
 		}
-		System.out.println();
+
+		for (int i = 0; i < arrBtn.length; i++) {
+			System.out.print(arrBtn[i] + " ");
+		}
+
 	}
 
 	public static void main(String[] args) {
@@ -86,18 +91,8 @@ public class test1 {
 		// 저장위치 선정
 		location();
 		System.out.println();
-		
+
 		// 버튼이 실행되는 부분
 		button();
-
-		while (true) {
-			// 버튼의 중복 처리
-			if ((ansColor == arrBtn[0]) || (ansColor == arrBtn[1]) || (arrBtn[0] == arrBtn[1])) {
-				button();
-			} else {
-				break;
-			}
-		}
-
 	}
 }
