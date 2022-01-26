@@ -1,9 +1,9 @@
-package select_color;
+package select_color_swing;
 
 import java.awt.Color;
 import java.util.Scanner;
 
-public class test {	// »ö±ò »ó¼ö
+public class SelectColorConsole {	// »ö±ò »ó¼ö
 //	private static final int RED = 0;
 //	private static final int BLUE = 1;
 //	private static final int YELLOW = 2;

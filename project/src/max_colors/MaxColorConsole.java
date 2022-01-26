@@ -1,6 +1,6 @@
-package more_colors;
+package max_colors;
 
-public class project_color {
+public class MaxColorConsole {
 	// »ö±ò »ó¼ö
 	private static final int RED = 0;
 	private static final int BLUE = 1;
