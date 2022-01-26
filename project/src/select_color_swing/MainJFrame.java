@@ -4,17 +4,19 @@ import java.awt.Container;
 
 import javax.swing.JFrame;
 
+// select color의 mainJFrame
+
 public class MainJFrame extends JFrame {
-	public static SelectColorPanel selectpan;
+	public static SelectColor selectpan;
 	Container c;
 
 	public MainJFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle("색 선택하기");
-		setSize(1080, 720);
+		setTitle("주위 집중력 훈련 게임");
+		setSize(1024, 768);
 		
 		c = getContentPane();
-		selectpan = new SelectColorPanel();
+		selectpan = new SelectColor();
 		
 		c.add(selectpan);
 	}
