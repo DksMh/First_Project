@@ -3,14 +3,14 @@ package select_color_swing;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-public class SelectColor extends JPanel implements ActionListener {
+import gameContainer.GameContainer;
+
+public class SelectColor extends GameContainer {
 	private ImageIcon bgImg;
 	private JLabel bgImgPan;
 
@@ -38,7 +38,6 @@ public class SelectColor extends JPanel implements ActionListener {
 
 	public SelectColor() {
 		scc = new SelectColorConsole();
-		System.out.println(scc.arrBtn[0]);
 		this.setLayout(null);
 
 		bgImg = new ImageIcon("images/gamebg.png");
@@ -66,32 +65,6 @@ public class SelectColor extends JPanel implements ActionListener {
 		checkLabel = new JLabel(checkIcon);
 		ImageIcon xIcon = new ImageIcon("images/x.png");
 		xLabel = new JLabel(xIcon);
-
-		if (scc.ansColor == 0) {
-			txtColor = new JLabel("»¡°£»ö");
-		} else if (scc.ansColor == 1) {
-			txtColor = new JLabel("ÁÖÈ²»ö");
-		} else if (scc.ansColor == 2) {
-			txtColor = new JLabel("³ë¶õ»ö");
-		} else if (scc.ansColor == 3) {
-			txtColor = new JLabel("ÃÊ·Ï»ö");
-		} else if (scc.ansColor == 4) {
-			txtColor = new JLabel("ÆÄ¶õ»ö");
-		} else if (scc.ansColor == 5) {
-			txtColor = new JLabel("ºĞÈ«»ö");
-		} else {
-			txtColor = new JLabel("ÀÚÁÖ»ö");
-		}
-		font1 = new Font("¸¼Àº °íµñ", Font.BOLD, 44);
-		txtColor.setFont(font1);
-		txtColor.setForeground(scc.paintTxt());
-		txtColor.setBounds(300, 70, 500, 100);
-
-		txtTitle = new JLabel("¾Ë¸ÂÀº »öÀ» ¼±ÅÃÇØÁÖ¼¼¿ä");
-		font2 = new Font("¸¼Àº °íµñ", Font.BOLD, 20);
-		txtTitle.setFont(font2);
-		txtTitle.setForeground(Color.black);
-		txtTitle.setBounds(250, 20, 500, 100);
 		
 		checkLabel.setBounds(670, 65, 150, 150);
 		this.add(checkLabel);
@@ -100,6 +73,32 @@ public class SelectColor extends JPanel implements ActionListener {
 		this.add(xLabel);
 		xLabel.setVisible(false);
 
+		if (scc.ansColor == 0) {
+			txtColor = new JLabel("ë¹¨ê°„ìƒ‰");
+		} else if (scc.ansColor == 1) {
+			txtColor = new JLabel("ì£¼í™©ìƒ‰");
+		} else if (scc.ansColor == 2) {
+			txtColor = new JLabel("ë…¸ë€ìƒ‰");
+		} else if (scc.ansColor == 3) {
+			txtColor = new JLabel("ì´ˆë¡ìƒ‰");
+		} else if (scc.ansColor == 4) {
+			txtColor = new JLabel("íŒŒë€ìƒ‰");
+		} else if (scc.ansColor == 5) {
+			txtColor = new JLabel("ë¶„í™ìƒ‰");
+		} else {
+			txtColor = new JLabel("ìì£¼ìƒ‰");
+		}
+		font1 = new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 44);
+		txtColor.setFont(font1);
+		txtColor.setForeground(scc.paintTxt());
+		txtColor.setBounds(300, 70, 500, 100);
+
+		txtTitle = new JLabel("ì•Œë§ì€ ìƒ‰ì„ ì„ íƒí•´ì£¼ì„¸ìš”");
+		font2 = new Font("ë§‘ì€ ê³ ë”•", Font.BOLD, 20);
+		txtTitle.setFont(font2);
+		txtTitle.setForeground(Color.black);
+		txtTitle.setBounds(250, 20, 500, 100);
+		
 		bgSKPan.add(txtTitle);
 		bgSKPan.add(txtColor);
 		bgSKPan.add(btn1);
@@ -113,12 +112,12 @@ public class SelectColor extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btn1) {
 			if (scc.ansColor == scc.arrBtn[0]) {
-//				JOptionPane.showMessageDialog(bgSKPan, "Á¤´ä");
+//				JOptionPane.showMessageDialog(bgSKPan, "ì •ë‹µ");
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
 			} else {
-//				JOptionPane.showMessageDialog(bgSKPan, "¿À´ä");
+//				JOptionPane.showMessageDialog(bgSKPan, "ì˜¤ë‹µ");
 				xLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -127,12 +126,12 @@ public class SelectColor extends JPanel implements ActionListener {
 		
 		if (e.getSource() == btn2) {
 			if (scc.ansColor == scc.arrBtn[1]) {
-//				JOptionPane.showMessageDialog(bgSKPan, "Á¤´ä");
+//				JOptionPane.showMessageDialog(bgSKPan, "ì •ë‹µ");
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
 			} else {
-//				JOptionPane.showMessageDialog(bgSKPan, "¿À´ä");
+//				JOptionPane.showMessageDialog(bgSKPan, "ì˜¤ë‹µ");
 				xLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -141,17 +140,22 @@ public class SelectColor extends JPanel implements ActionListener {
 		
 		if (e.getSource() == btn3) {
 			if (scc.ansColor == scc.arrBtn[2]) {
-//				JOptionPane.showMessageDialog(bgSKPan, "Á¤´ä");
+//				JOptionPane.showMessageDialog(bgSKPan, "ì •ë‹µ");
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
 			} else {
-//				JOptionPane.showMessageDialog(bgSKPan, "¿À´ä");
+//				JOptionPane.showMessageDialog(bgSKPan, "ì˜¤ë‹µ");
 				xLabel.setVisible(true);
 				revalidate();
 				repaint();
 			}
 		}
+	}
+
+	@Override
+	public void gamePlay() {
+		
 	}
 
 }

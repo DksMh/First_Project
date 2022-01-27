@@ -1,13 +1,13 @@
-package select_color_swing;
+package max_colors;
 
 import java.awt.Container;
 
 import javax.swing.JFrame;
 
-// select color의 mainJFrame
+// max color의 mainJFrame
 
 public class MainJFrame extends JFrame {
-	public static SelectColor selectpan;
+	public static MaxColorPanel maxpan;
 	Container c;
 
 	public MainJFrame() {
@@ -16,9 +16,9 @@ public class MainJFrame extends JFrame {
 		setSize(1024, 768);
 		
 		c = getContentPane();
-		selectpan = new SelectColor();
+		maxpan = new MaxColorPanel();
 		
-		c.add(selectpan);
+		c.add(maxpan);
 	}
 	
 
