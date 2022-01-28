@@ -1,4 +1,4 @@
-package select_color_swing;
+package test;
 
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;

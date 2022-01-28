@@ -3,10 +3,14 @@ package select_color_swing;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import gameContainer.GameContainer;
 
@@ -25,7 +29,7 @@ public class SelectColor extends GameContainer {
 	private Font font2;
 	private JLabel txtTitle;
 	private JLabel txtColor;
-	
+
 	private JLabel checkLabel;
 	private JLabel xLabel;
 
@@ -51,21 +55,29 @@ public class SelectColor extends GameContainer {
 		btn1 = new JButton();
 		btn2 = new JButton();
 		btn3 = new JButton();
-		btn1.setBounds(100, 200, 100, 150);
-		btn2.setBounds(300, 200, 100, 150);
-		btn3.setBounds(500, 200, 100, 150);
+//		MyMouseListener listener = new MyMouseListener();
+//		btn1.addMouseListener(listener);
+//		btn2.addMouseListener(listener);
+//		btn3.addMouseListener(listener);
+		EmptyBorder b1 = new EmptyBorder(5, 3, 5, 0);
+		btn1.setBorder(b1);
+		btn2.setBorder(b1);
+		btn3.setBorder(b1);
+		btn1.setBounds(100, 200, 115, 150);
+		btn2.setBounds(303, 200, 115, 150);
+		btn3.setBounds(503, 200, 115, 150);
 		btn1.setBackground(scc.col[scc.arrBtn[0]]);
 		btn2.setBackground(scc.col[scc.arrBtn[1]]);
 		btn3.setBackground(scc.col[scc.arrBtn[2]]);
 		btn1.addActionListener(this);
 		btn2.addActionListener(this);
 		btn3.addActionListener(this);
-		
+
 		ImageIcon checkIcon = new ImageIcon("images/o.png");
 		checkLabel = new JLabel(checkIcon);
 		ImageIcon xIcon = new ImageIcon("images/x.png");
 		xLabel = new JLabel(xIcon);
-		
+
 		checkLabel.setBounds(670, 65, 150, 150);
 		this.add(checkLabel);
 		checkLabel.setVisible(false);
@@ -86,19 +98,19 @@ public class SelectColor extends GameContainer {
 		} else if (scc.ansColor == 5) {
 			txtColor = new JLabel("분홍색");
 		} else {
-			txtColor = new JLabel("자주색");
+			txtColor = new JLabel("보라색");
 		}
 		font1 = new Font("맑은 고딕", Font.BOLD, 44);
 		txtColor.setFont(font1);
 		txtColor.setForeground(scc.paintTxt());
-		txtColor.setBounds(300, 70, 500, 100);
+		txtColor.setBounds(300, 75, 500, 100);
 
 		txtTitle = new JLabel("알맞은 색을 선택해주세요");
-		font2 = new Font("맑은 고딕", Font.BOLD, 20);
+		font2 = new Font("맑은 고딕", Font.BOLD, 25);
 		txtTitle.setFont(font2);
 		txtTitle.setForeground(Color.black);
-		txtTitle.setBounds(250, 20, 500, 100);
-		
+		txtTitle.setBounds(220, 25, 500, 100);
+
 		bgSKPan.add(txtTitle);
 		bgSKPan.add(txtColor);
 		bgSKPan.add(btn1);
@@ -112,40 +124,34 @@ public class SelectColor extends GameContainer {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btn1) {
 			if (scc.ansColor == scc.arrBtn[0]) {
-//				JOptionPane.showMessageDialog(bgSKPan, "정답");
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
 			} else {
-//				JOptionPane.showMessageDialog(bgSKPan, "오답");
 				xLabel.setVisible(true);
 				revalidate();
 				repaint();
 			}
 		}
-		
+
 		if (e.getSource() == btn2) {
 			if (scc.ansColor == scc.arrBtn[1]) {
-//				JOptionPane.showMessageDialog(bgSKPan, "정답");
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
 			} else {
-//				JOptionPane.showMessageDialog(bgSKPan, "오답");
 				xLabel.setVisible(true);
 				revalidate();
 				repaint();
 			}
 		}
-		
+
 		if (e.getSource() == btn3) {
 			if (scc.ansColor == scc.arrBtn[2]) {
-//				JOptionPane.showMessageDialog(bgSKPan, "정답");
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
 			} else {
-//				JOptionPane.showMessageDialog(bgSKPan, "오답");
 				xLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -155,7 +161,43 @@ public class SelectColor extends GameContainer {
 
 	@Override
 	public void gamePlay() {
-		
+
 	}
 
+	class MyMouseListener implements MouseListener {
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			btn1 = (JButton) e.getSource();
+			btn1.setBorder(new LineBorder(Color.black, 2));
+			btn2 = (JButton) e.getSource();
+			btn2.setBorder(new LineBorder(Color.black, 2));
+			btn3 = (JButton) e.getSource();
+			btn3.setBorder(new LineBorder(Color.black, 2));
+		}
+		
+		@Override 
+		public void mouseExited(MouseEvent e) {
+			btn1 = (JButton) e.getSource();
+			btn1.setBorder(new LineBorder(Color.black, 0));
+			btn2 = (JButton) e.getSource();
+			btn2.setBorder(new LineBorder(Color.black, 0));
+			btn3 = (JButton) e.getSource();
+			btn3.setBorder(new LineBorder(Color.black, 0));
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			
+		}
+		
+		@Override
+		public void mousePressed(MouseEvent e) {
+			
+		}
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			
+		}
+	}
 }

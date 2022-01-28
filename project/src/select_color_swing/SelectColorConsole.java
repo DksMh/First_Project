@@ -13,7 +13,8 @@ public class SelectColorConsole {
 //	private static final int ORANGE = 3;
 
 	// 글자에 입힐 색깔(스윙)
-	Color[] col = { Color.red, Color.orange, Color.yellow, Color.green, Color.blue, Color.pink, Color.magenta};
+	Color[] col = { new Color(233,23,22), new Color(255,127,0), new Color(254,228,55), new Color(33,139,34),
+			new Color(81,107,254), new Color(255,126,250), new Color(168,64,255)};
 	
 	// 글자
 //	static String[] cs2 = { "RED", "BLUE", "YELLOW", "ORANGE" };

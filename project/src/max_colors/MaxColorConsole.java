@@ -8,7 +8,7 @@ public class MaxColorConsole {
 	private final int BLUE = 1;
 	private final int YELLOW = 2;
 	
-	Color[] col = { Color.red, Color.blue, Color.yellow};
+	Color[] col = {new Color(233,23,22), new Color(81,107,254), new Color(254,228,55)};
 
 	// 색이 콘솔창에 찍힌 수 (= count)
 	int c0 = 0;
