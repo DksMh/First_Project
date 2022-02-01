@@ -1,24 +1,24 @@
-package select_color_swing;
+package Life_game;
 
 import java.awt.Container;
 
 import javax.swing.JFrame;
 
-// select color의 mainJFrame
+// life game의 mainJFrame
 
 public class MainJFrame extends JFrame {
-	public static SelectColorPanel selectpan;
+	public static LifeGamePanel lifepan;
 	Container c;
 
 	public MainJFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle("주위 집중력 훈련 게임");
+		setTitle("실행활 순서 찾기 게임");
 		setSize(1024, 768);
 		
 		c = getContentPane();
-		selectpan = new SelectColorPanel();
+		lifepan = new LifeGamePanel();
 		
-		c.add(selectpan);
+		c.add(lifepan);
 	}
 	
 

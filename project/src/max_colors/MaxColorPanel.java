@@ -22,22 +22,25 @@ public class MaxColorPanel extends GameContainer {
 
 	private ImageIcon bgSK;
 	private JLabel bgSKPan;
+	
+	private ImageIcon checkIcon;
+	private ImageIcon xIcon;
+	private JLabel checkLabel;
+	private JLabel xLabel;
 
 	private JPanel colorPan;
 
 	private JButton btn1;
 	private JButton btn2;
 	private JButton btn3;
+	
+	private Color color;
+	private EmptyBorder b1;
 
 	private JLabel txtTitle;
 	private Font font;
 
-	private JLabel checkLabel;
-	private JLabel xLabel;
-
 	MaxColorConsole mcc;
-
-	
 
 	public MaxColorPanel() {
 		mcc = new MaxColorConsole();
@@ -51,9 +54,9 @@ public class MaxColorPanel extends GameContainer {
 		bgSKPan = new JLabel(bgSK);
 		bgSKPan.setBounds(150, 150, 720, 425);
 
-		ImageIcon checkIcon = new ImageIcon("images/o.png");
+		checkIcon = new ImageIcon("images/o.png");
 		checkLabel = new JLabel(checkIcon);
-		ImageIcon xIcon = new ImageIcon("images/x.png");
+		xIcon = new ImageIcon("images/x.png");
 		xLabel = new JLabel(xIcon);
 
 		checkLabel.setBounds(670, 65, 150, 150);
@@ -78,7 +81,11 @@ public class MaxColorPanel extends GameContainer {
 		btn1 = new JButton("btn1");
 		btn2 = new JButton("btn2");
 		btn3 = new JButton("btn3");
-		EmptyBorder b1 = new EmptyBorder(5, 3, 5, 0);
+		color = new Color(0,0,0,0);
+		btn1.setForeground(color);
+		btn2.setForeground(color);
+		btn3.setForeground(color);
+		b1 = new EmptyBorder(5, 3, 5, 0);
 		btn1.setBorder(b1);
 		btn2.setBorder(b1);
 		btn3.setBorder(b1);
@@ -115,10 +122,10 @@ public class MaxColorPanel extends GameContainer {
 	public void actionPerformed(ActionEvent e) {
 		
 		JButton btn = (JButton)e.getSource();
-		System.out.println("text => " + btn.getText());
-		System.out.println(btn.equals(btn2));
-		if ("btn1".equals(btn.getText()) ) {
-			System.out.println("btn1");
+//		System.out.println("text => " + btn.getText());
+//		System.out.println(btn.equals(btn2));
+		if ("btn1".equals(btn.getText())) {
+//			System.out.println("btn1");
 			if ("RED".equals(mcc.ans)) {
 				checkLabel.setVisible(true);
 				revalidate();
@@ -128,8 +135,8 @@ public class MaxColorPanel extends GameContainer {
 				revalidate();
 				repaint();
 			}
-		}else if  ("btn2".equals(btn.getText()) ) {
-			System.out.println("btn2");
+		}else if  ("btn2".equals(btn.getText())) {
+//			System.out.println("btn2");
 			if ("BLUE".equals(mcc.ans)) {
 				checkLabel.setVisible(true);
 				revalidate();
@@ -139,8 +146,8 @@ public class MaxColorPanel extends GameContainer {
 				revalidate();
 				repaint();
 			}
-		} else if   ("btn3".equals(btn.getText()) ){
-			System.out.println("btn3");
+		} else if   ("btn3".equals(btn.getText())){
+//			System.out.println("btn3");
 			if ("YELLOW".equals(mcc.ans)) {
 				checkLabel.setVisible(true);
 				revalidate();
