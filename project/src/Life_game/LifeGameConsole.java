@@ -11,19 +11,20 @@ public class LifeGameConsole {
 			{ "드라이어기의 전원을 킨다", "풍속을 조절한다", "머리를 말린다", "전원을 끈다" },
 			{ "다리미의 전원을 킨다", "분무기로 물을 뿌린다", "옷을 다린다", "전원을 끈다" },
 			{ "믹서기 안에 재료를 넣는다", "전원을 킨다", "음식을 간다", "전원을 끈다" }, 
-			{ "선풍기의 전원을 킨다", "풍속을 조절한다", "전원을 끈다", "플러그를 뺀다" },
 			{ "식기세척기안에 그릇을 넣는다", "전원을 누른다", "그릇을 뺀다", "제자리에 놓는다" },
 			{ "변기의 뚜껑을 연다", " 볼일을 본다", "레버로 물을 내린다", "손을 씻는다"} }; // 12개
+	
+	String[] ArrLabel = {"전자레인지", "TV", "선풍기", "가스레인지", "청소기", "세탁기", "드라이어기", "다리미", "믹서기", "식기세척기", "변기"};
 
 	// 문항을 담는 변수
-	String[] answer = new String[12];
+	String[] answer = new String[11];
 
 	// int k = 1; // 문항 번호을 결정하는 변수(랜덤으로 돌면 될거같다)
-	int k = (int) (Math.random() * 12); // 문항을 랜덤으로 뽑는다.
+	int k = (int) (Math.random() * 11); // 문항을 랜덤으로 뽑는다.
 	int count = 0;
 	
 	// 중복 체크 - 만약 Arr[0]이 나왔는데 다음 문제도 Arr[0]이 나오는 경우 생각하기
-	String[] a = new String[12];
+	String[] a = new String[11];
 	int[] b = new int[4];
 	int r;
 
@@ -44,9 +45,9 @@ public class LifeGameConsole {
 		for (int i = k; i < k + 1; i++) { // 문항뽑기
 			for (int j = 0; j < 4; j++) { // 문항안 정답 뽑기
 				a[count++] = Arr[i][j]; // 문항 정답을 차례대로 보여준다
-				System.out.println(a[j]);
+//				System.out.println(a[j]);
 			}
-			System.out.println();
+//			System.out.println();
 		}
 	}
 
@@ -96,6 +97,10 @@ public class LifeGameConsole {
 			answerArr();
 			answer[10] = a[10];
 			break;
+		case 11:
+			answerArr();
+			answer[11] = a[11];
+			break;
 		}
 	}
 
@@ -111,14 +116,16 @@ public class LifeGameConsole {
 					break;
 				} 
 			}
+//			System.out.println(a[b[0]]);
 		}
-		for(int i = 0; i < 4; i++) {
-			System.out.println(a[b[i]]);
-		}
+//		for(int i = 0; i < 4; i++) {
+//			System.out.println(a[b[i]]);
+//		}
 	}
 
 	public static void main(String[] args) {
 		new LifeGameConsole();
+		
 	}
 
 }
