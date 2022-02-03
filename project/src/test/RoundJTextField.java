@@ -1,4 +1,4 @@
-package max_colors;
+package test;
 
 import java.awt.Graphics;
 import java.awt.Shape;

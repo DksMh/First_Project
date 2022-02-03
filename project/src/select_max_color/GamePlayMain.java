@@ -5,7 +5,7 @@ import java.awt.Container;
 import javax.swing.JFrame;
 
 import max_colors.MaxColorPanel;
-import select_color_swing.SelectColorPanel;
+import select_color.SelectColorPanel;
 
 public class GamePlayMain extends JFrame {
 	public static MaxColorPanel maxpan;

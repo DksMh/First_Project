@@ -1,8 +1,7 @@
-package max_colors;
+package select_color;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,13 +9,12 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import gameContainer.GameContainer;
 
-public class MaxColorPanel extends GameContainer {
+public class SelectColorPanel extends GameContainer {
 	// 배경
 	private ImageIcon bgImg;
 	private JLabel bgImgPan;
@@ -24,6 +22,14 @@ public class MaxColorPanel extends GameContainer {
 	// 스케치북
 	private ImageIcon bgSK;
 	private JLabel bgSKPan;
+
+	// 컬러버튼
+	private JButton btn1;
+	private JButton btn2;
+	private JButton btn3;
+	
+	private Color color;
+	private EmptyBorder b1;
 	
 	// 정답, 오답
 	private ImageIcon checkIcon;
@@ -31,29 +37,25 @@ public class MaxColorPanel extends GameContainer {
 	private JLabel checkLabel;
 	private JLabel xLabel;
 
-	// 3 x 3
-	private JPanel colorPan;
-
-	// 빨강, 파랑, 노랑
-	private JButton btn1;
-	private JButton btn2;
-	private JButton btn3;
+	private Font font1;
+	private Font font2;
 	
-	private Color color;
-	private EmptyBorder b1;
-
-	// 제목
+	// 제목부분 글자와 색깔
 	private JLabel txtTitle;
+	private JLabel txtColor;
+
+	private int w = 720;
+	private int h = 425;
+	private int x = (int) (w / 2);
+	private int y = (int) (h / 2);
+
+	SelectColorConsole scc;
 	
-	private Font font;
-
-	MaxColorConsole mcc;
-
 	@Override
 	public void gamePlay() {} // 여기 수정하시면 됩니다^^
 
-	public MaxColorPanel() {
-		mcc = new MaxColorConsole();
+	public SelectColorPanel() {
+		scc = new SelectColorConsole();
 		this.setLayout(null);
 
 		// 배경
@@ -65,6 +67,35 @@ public class MaxColorPanel extends GameContainer {
 		bgSK = new ImageIcon("images/sk.png");
 		bgSKPan = new JLabel(bgSK);
 		bgSKPan.setBounds(150, 150, 720, 425);
+
+		// 버튼
+		btn1 = new JButton("btn1");
+		btn2 = new JButton("btn2");
+		btn3 = new JButton("btn3");
+		btn1.setFocusPainted(false);
+		btn2.setFocusPainted(false);
+		btn3.setFocusPainted(false);
+		color = new Color(0,0,0,0);
+		btn1.setForeground(color);
+		btn2.setForeground(color);
+		btn3.setForeground(color);
+		b1 = new EmptyBorder(5, 3, 5, 0);
+		btn1.setBorder(b1);
+		btn2.setBorder(b1);
+		btn3.setBorder(b1);
+		btn1.setBounds(100, 200, 115, 150);
+		btn2.setBounds(303, 200, 115, 150);
+		btn3.setBounds(503, 200, 115, 150);
+		btn1.setBackground(scc.col[scc.arrBtn[0]]);
+		btn2.setBackground(scc.col[scc.arrBtn[1]]);
+		btn3.setBackground(scc.col[scc.arrBtn[2]]);
+		btn1.addActionListener(this);
+		btn2.addActionListener(this);
+		btn3.addActionListener(this);
+		MyMouseListener listener = new MyMouseListener();
+		btn1.addMouseListener(listener);
+		btn2.addMouseListener(listener);
+		btn3.addMouseListener(listener);
 
 		// 정답, 오답
 		checkIcon = new ImageIcon("images/o.png");
@@ -78,58 +109,36 @@ public class MaxColorPanel extends GameContainer {
 		this.add(xLabel);
 		xLabel.setVisible(false);
 
-		// 3 x 3
-		colorPan = new JPanel();
-		colorPan.setLayout(new GridLayout(3, 3));
-		colorPan.setBounds(100, 150, 300, 200);
-		// 3 x 3 컬러 배열 출력
-		for (int i = 0; i < 9; i++) {
-			JPanel b = new JPanel();
-			LineBorder b2 = new LineBorder(new Color(248, 248, 248), 1);
-			b.setBorder(b2);
-			b.setBackground(mcc.col[mcc.arr[i]]);
-			colorPan.add(b);
+		// 제목 글자 색깔정하기
+		if (scc.ansColor == 0) {
+			txtColor = new JLabel("빨간색");
+		} else if (scc.ansColor == 1) {
+			txtColor = new JLabel("주황색");
+		} else if (scc.ansColor == 2) {
+			txtColor = new JLabel("노란색");
+		} else if (scc.ansColor == 3) {
+			txtColor = new JLabel("초록색");
+		} else if (scc.ansColor == 4) {
+			txtColor = new JLabel("파란색");
+		} else if (scc.ansColor == 5) {
+			txtColor = new JLabel("분홍색");
+		} else {
+			txtColor = new JLabel("보라색");
 		}
-		
-		// 버튼
-		btn1 = new JButton("btn1");
-		btn2 = new JButton("btn2");
-		btn3 = new JButton("btn3");
-		color = new Color(0,0,0,0);
-		btn1.setForeground(color);
-		btn2.setForeground(color);
-		btn3.setForeground(color);
-		btn1.setFocusPainted(false);
-		btn2.setFocusPainted(false);
-		btn3.setFocusPainted(false);
-		b1 = new EmptyBorder(5, 3, 5, 0);
-		btn1.setBorder(b1);
-		btn2.setBorder(b1);
-		btn3.setBorder(b1);
-		btn1.setBounds(500, 160, 100, 50);
-		btn2.setBounds(500, 230, 100, 50);
-		btn3.setBounds(500, 300, 100, 50);
-		btn1.setBackground(new Color(233, 23, 22));
-		btn2.setBackground(new Color(81, 107, 254));
-		btn3.setBackground(new Color(254, 228, 55));
-		btn1.addActionListener(this);
-		btn2.addActionListener(this);
-		btn3.addActionListener(this);
-		MyMouseListener listener = new MyMouseListener();
-		btn1.addMouseListener(listener);
-		btn2.addMouseListener(listener);
-		btn3.addMouseListener(listener);
+		font1 = new Font("맑은 고딕", Font.BOLD, 44);
+		txtColor.setFont(font1);
+		txtColor.setForeground(scc.paintTxt());
+		txtColor.setBounds(300, 75, 500, 100);
 
-		// 제목
-		txtTitle = new JLabel("가장 많은 색을 선택해주세요");
-		font = new Font("맑은 고딕", Font.BOLD, 25);
-		txtTitle.setFont(font);
+		txtTitle = new JLabel("알맞은 색을 선택해주세요");
+		font2 = new Font("맑은 고딕", Font.BOLD, 25);
+		txtTitle.setFont(font2);
 		txtTitle.setForeground(Color.black);
-		txtTitle.setBounds(215, 50, 500, 100);
+		txtTitle.setBounds(220, 25, 500, 100);
 
 		// 판넬 붙이기
-		bgSKPan.add(colorPan);
 		bgSKPan.add(txtTitle);
+		bgSKPan.add(txtColor);
 		bgSKPan.add(btn1);
 		bgSKPan.add(btn2);
 		bgSKPan.add(btn3);
@@ -137,12 +146,12 @@ public class MaxColorPanel extends GameContainer {
 		this.add(bgImgPan);
 	}
 
+	// 정답 판별하기
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// 버튼의 정답판별
 		JButton btn = (JButton)e.getSource();
 		if ("btn1".equals(btn.getText())) {
-			if ("RED".equals(mcc.ans)) {
+			if (scc.ansColor == scc.arrBtn[0]) {
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -151,8 +160,10 @@ public class MaxColorPanel extends GameContainer {
 				revalidate();
 				repaint();
 			}
-		}else if  ("btn2".equals(btn.getText())) {
-			if ("BLUE".equals(mcc.ans)) {
+		}
+
+		if ("btn2".equals(btn.getText())) {
+			if (scc.ansColor == scc.arrBtn[1]) {
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -161,8 +172,10 @@ public class MaxColorPanel extends GameContainer {
 				revalidate();
 				repaint();
 			}
-		} else if   ("btn3".equals(btn.getText())){
-			if ("YELLOW".equals(mcc.ans)) {
+		}
+
+		if ("btn3".equals(btn.getText())) {
+			if (scc.ansColor == scc.arrBtn[2]) {
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();

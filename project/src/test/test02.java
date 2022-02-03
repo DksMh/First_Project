@@ -1,4 +1,4 @@
-package Life_game;
+package test;
 
 import java.awt.*;
 import java.awt.event.*;
