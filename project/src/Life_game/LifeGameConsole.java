@@ -19,14 +19,11 @@ public class LifeGameConsole {
 
 //	int k = 1; // 문제 번호을 결정하는 변수(랜덤으로 돌면 될거같다)
 	int k = (int) (Math.random() * 11); // 문제을 랜덤으로 뽑는다.
-	int count = 0;
 	
 	// 답이 2차원 배열이여서 한문제을 뽑아내기 위해 선언한 1차원배열 a
 	String[] a = new String[11];
 	// 랜덤으로 순서를 바꾸기 위한 b
 	int[] b = new int[4];
-	// 랜덤 변수 r
-	int r;
 
 	public LifeGameConsole() {
 		run();
@@ -39,7 +36,7 @@ public class LifeGameConsole {
 	}
 	
 	public void answerArr() { // 정답를 뽑기위한 함수
-		int n = 0;
+		int count = 0;
 		for (int i = k; i < k + 1; i++) { // 문제뽑기
 			for (int j = 0; j < 4; j++) { // 문제안 정답 뽑기
 				a[count++] = Arr[i][j]; // 문제 정답을 차례대로 보여준다
@@ -51,7 +48,7 @@ public class LifeGameConsole {
 
 	public void quiz() { // 문제를 뽑기위한 함수
 		for (int i = 0; i < 4; i++) {
-			r = (int) (Math.random() * 4);
+			int r = (int) (Math.random() * 4);
 			b[i] = r;
 			for (int j = 0; j < i; j++) {
 				if (b[j] == b[i]) {

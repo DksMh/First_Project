@@ -12,12 +12,10 @@ public class SelectColorConsole {
 
 	// 색깔의 배열
 	int[] arrBtn = new int[3]; // 버튼의 배열
-	int[] arrTxt = new int[7]; // 글자의 배열
+	
 
 	int ansColor; // 정답(글자와 버튼색이 같음)
-	int otherColor; // 정답이 아닌 버튼색깔
 	int ansLoc; // 정답위치(정답위치가 일정함을 방지하기위해서)
-	int paintColor; // 글자색
 
 	public SelectColorConsole() {
 		run();
@@ -26,12 +24,12 @@ public class SelectColorConsole {
 	// 콘솔창에 찍히는 부분으로 필요없어서 주석처리
 	// 숫자를 글자로 바꾸기위한 변수
 	static int num;
-	static int num1;
 //	static Scanner scan = new Scanner(System.in);
 
 	// 글자 함수
 	// 글자(=정답)를 정해주기위한 함수이다
 	public String colorTxt() {
+		int[] arrTxt = new int[7]; // (색깔) 글자의 배열
 		for (int i = 0; i < 1; i++) {
 			arrTxt[i] = (int) (Math.random() * 7);
 //			System.out.println("arrTxt[i] " + arrTxt[i]);
@@ -48,6 +46,9 @@ public class SelectColorConsole {
 
 	// 글자의 색 함수
 	public Color paintTxt() {
+		int paintColor; // 글자색
+		int num1;
+		
 		while (true) {
 			paintColor = (int) (Math.random() * 7); // 컬러 수여서 변동가능
 			if (ansColor == paintColor) {
@@ -80,6 +81,8 @@ public class SelectColorConsole {
 	// 정답과 오답2개를 받기위한 함수이다
 	public void button() {
 		for (int i = 0; i < arrBtn.length; i++) {
+			int otherColor; // 정답이 아닌 버튼색깔
+			
 			// 정답을 제외한 버튼의 색깔지정하는 부분
 			// 정답과 같으면 다시 위로 올라가서 for문을 돌아라
 			if (i == ansLoc) {
