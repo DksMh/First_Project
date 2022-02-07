@@ -3,6 +3,7 @@ package select_color;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,8 +14,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import gameContainer.GameContainer;
+import gameHowTo.GameHowTo;
 
-public class SelectColorPanel extends GameContainer {
+// 수정
+// 53줄, 99줄, 151줄, 181줄, 230줄, 270줄
+
+public class SelectColorPanel extends GameContainer implements MouseListener {
 	// 배경
 	private ImageIcon bgImg;
 	private JLabel bgImgPan;
@@ -27,10 +32,10 @@ public class SelectColorPanel extends GameContainer {
 	private JButton btn1;
 	private JButton btn2;
 	private JButton btn3;
-	
+
 	private Color color;
 	private EmptyBorder b1;
-	
+
 	// 정답, 오답
 	private ImageIcon checkIcon;
 	private ImageIcon xIcon;
@@ -39,22 +44,21 @@ public class SelectColorPanel extends GameContainer {
 
 	private Font font1;
 	private Font font2;
-	
+
 	// 제목부분 글자와 색깔
 	private JLabel txtTitle;
 	private JLabel txtColor;
 
-	private int w = 720;
-	private int h = 425;
-	private int x = (int) (w / 2);
-	private int y = (int) (h / 2);
-
 	SelectColorConsole scc;
-	
+	// 수정 (추가)
+	GameHowTo ght; // 수정끝
+
 	@Override
-	public void gamePlay() {} // 여기 수정하시면 됩니다^^
+	public void gamePlay() {
+	} // 여기 수정하시면 됩니다^^
 
 	public SelectColorPanel() {
+		ght = new GameHowTo();
 		scc = new SelectColorConsole();
 		this.setLayout(null);
 
@@ -75,7 +79,7 @@ public class SelectColorPanel extends GameContainer {
 		btn1.setFocusPainted(false);
 		btn2.setFocusPainted(false);
 		btn3.setFocusPainted(false);
-		color = new Color(0,0,0,0);
+		color = new Color(0, 0, 0, 0);
 		btn1.setForeground(color);
 		btn2.setForeground(color);
 		btn3.setForeground(color);
@@ -92,10 +96,11 @@ public class SelectColorPanel extends GameContainer {
 		btn1.addActionListener(this);
 		btn2.addActionListener(this);
 		btn3.addActionListener(this);
-		MyMouseListener listener = new MyMouseListener();
-		btn1.addMouseListener(listener);
-		btn2.addMouseListener(listener);
-		btn3.addMouseListener(listener);
+		// 수정 (삭제함)
+//		MyMouseListener listener = new MyMouseListener();
+//		btn1.addMouseListener(this);
+//		btn2.addMouseListener(this);
+//		btn3.addMouseListener(this); // 수정끝
 
 		// 정답, 오답
 		checkIcon = new ImageIcon("images/o.png");
@@ -136,6 +141,29 @@ public class SelectColorPanel extends GameContainer {
 		txtTitle.setForeground(Color.black);
 		txtTitle.setBounds(220, 25, 500, 100);
 
+		// 수정 (추가)
+		btn1.setEnabled(false);
+		btn2.setEnabled(false);
+		btn3.setEnabled(false);
+		ght.setBounds(100, 100, 820, 530);
+		bgImgPan.add(ght);
+		ght.exit.addActionListener(this); // 수정끝
+		// 수정 (삭제)
+//		ght.exit.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				btn1.addMouseListener(SelectColorPanel.this);
+//				btn2.addMouseListener(SelectColorPanel.this);
+//				btn3.addMouseListener(SelectColorPanel.this);
+//				btn1.setEnabled(true);
+//				btn2.setEnabled(true);
+//				btn3.setEnabled(true);
+//
+//				ght.setVisible(false);
+//			}
+//		}); // 수정끝
+
 		// 판넬 붙이기
 		bgSKPan.add(txtTitle);
 		bgSKPan.add(txtColor);
@@ -143,13 +171,26 @@ public class SelectColorPanel extends GameContainer {
 		bgSKPan.add(btn2);
 		bgSKPan.add(btn3);
 		bgImgPan.add(bgSKPan);
+		
 		this.add(bgImgPan);
 	}
 
 	// 정답 판별하기
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton btn = (JButton)e.getSource();
+		// 수정 (추가)
+		if(e.getSource() == ght.exit) {
+				btn1.addMouseListener(this);
+				btn2.addMouseListener(this);
+				btn3.addMouseListener(this);
+				btn1.setEnabled(true);
+				btn2.setEnabled(true);
+				btn3.setEnabled(true);
+				
+				ght.setVisible(false);
+		} // 수정끝
+		
+		JButton btn = (JButton) e.getSource();
 		if ("btn1".equals(btn.getText())) {
 			if (scc.ansColor == scc.arrBtn[0]) {
 				checkLabel.setVisible(true);
@@ -187,41 +228,79 @@ public class SelectColorPanel extends GameContainer {
 		}
 	}
 
+	// 수정 (삭제함)
 	// 버튼 위에 마우스를 올리면 보더생기기
-	class MyMouseListener implements MouseListener {
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			btn1 = (JButton) e.getSource();
-			btn1.setBorder(new LineBorder(Color.black, 2));
-			btn2 = (JButton) e.getSource();
-			btn2.setBorder(new LineBorder(Color.black, 2));
-			btn3 = (JButton) e.getSource();
-			btn3.setBorder(new LineBorder(Color.black, 2));
-		}
+//	class MyMouseListener implements MouseListener {
+//		@Override
+//		public void mouseEntered(MouseEvent e) {
+//			btn1 = (JButton) e.getSource();
+//			btn1.setBorder(new LineBorder(Color.black, 2));
+//			btn2 = (JButton) e.getSource();
+//			btn2.setBorder(new LineBorder(Color.black, 2));
+//			btn3 = (JButton) e.getSource();
+//			btn3.setBorder(new LineBorder(Color.black, 2));
+//		}
+//
+//		@Override
+//		public void mouseExited(MouseEvent e) {
+//			btn1 = (JButton) e.getSource();
+//			btn1.setBorder(new LineBorder(Color.black, 0));
+//			btn2 = (JButton) e.getSource();
+//			btn2.setBorder(new LineBorder(Color.black, 0));
+//			btn3 = (JButton) e.getSource();
+//			btn3.setBorder(new LineBorder(Color.black, 0));
+//		}
+//
+//		@Override
+//		public void mouseClicked(MouseEvent e) {
+//
+//		}
+//
+//		@Override
+//		public void mousePressed(MouseEvent e) {
+//
+//		}
+//
+//		@Override
+//		public void mouseReleased(MouseEvent e) {
+//
+//		}
+//	} // 수정끝
+
+	// 수정 (추가)
+	@Override
+	public void mouseClicked(MouseEvent e) {
 		
-		@Override 
-		public void mouseExited(MouseEvent e) {
-			btn1 = (JButton) e.getSource();
-			btn1.setBorder(new LineBorder(Color.black, 0));
-			btn2 = (JButton) e.getSource();
-			btn2.setBorder(new LineBorder(Color.black, 0));
-			btn3 = (JButton) e.getSource();
-			btn3.setBorder(new LineBorder(Color.black, 0));
-		}
-		
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			
-		}
-		
-		@Override
-		public void mousePressed(MouseEvent e) {
-			
-		}
-		
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			
-		}
 	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+
+	// 버튼 위에 마우스를 올리면 보더생기기
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		btn1 = (JButton) e.getSource();
+		btn1.setBorder(new LineBorder(Color.black, 2));
+		btn2 = (JButton) e.getSource();
+		btn2.setBorder(new LineBorder(Color.black, 2));
+		btn3 = (JButton) e.getSource();
+		btn3.setBorder(new LineBorder(Color.black, 2));
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		btn1 = (JButton) e.getSource();
+		btn1.setBorder(new LineBorder(Color.black, 0));
+		btn2 = (JButton) e.getSource();
+		btn2.setBorder(new LineBorder(Color.black, 0));
+		btn3 = (JButton) e.getSource();
+		btn3.setBorder(new LineBorder(Color.black, 0));
+	} // 수정끝
 }
