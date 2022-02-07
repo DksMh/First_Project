@@ -18,9 +18,8 @@ import javax.swing.border.LineBorder;
 import gameContainer.GameContainer;
 import gameHowTo.GameHowTo;
 
-
 // 수정
-// 125줄, 145줄, 189줄, 228줄
+// 2월 7일 - 125줄, 145줄, 189줄, 228줄
 
 public class MaxColorPanel extends GameContainer implements MouseListener {
 	// 배경
@@ -30,7 +29,7 @@ public class MaxColorPanel extends GameContainer implements MouseListener {
 	// 스케치북
 	private ImageIcon bgSK;
 	private JLabel bgSKPan;
-	
+
 	// 정답, 오답
 	private ImageIcon checkIcon;
 	private ImageIcon xIcon;
@@ -44,19 +43,20 @@ public class MaxColorPanel extends GameContainer implements MouseListener {
 	private JButton btn1;
 	private JButton btn2;
 	private JButton btn3;
-	
+
 	private Color color;
 	private EmptyBorder b1;
 
 	// 제목
 	private JLabel txtTitle;
-	
+
 	private Font font;
 
 	MaxColorConsole mcc;
-	
+
 	@Override
-	public void gamePlay() {} // 여기 수정하시면 됩니다^^
+	public void gamePlay() {
+	} // 여기 수정하시면 됩니다^^
 
 	public MaxColorPanel() {
 		mcc = new MaxColorConsole();
@@ -97,12 +97,12 @@ public class MaxColorPanel extends GameContainer implements MouseListener {
 			b.setBackground(mcc.col[mcc.arr[i]]);
 			colorPan.add(b);
 		}
-		
+
 		// 버튼
 		btn1 = new JButton("btn1");
 		btn2 = new JButton("btn2");
 		btn3 = new JButton("btn3");
-		color = new Color(0,0,0,0);
+		color = new Color(0, 0, 0, 0);
 		btn1.setForeground(color);
 		btn2.setForeground(color);
 		btn3.setForeground(color);
@@ -145,14 +145,14 @@ public class MaxColorPanel extends GameContainer implements MouseListener {
 //		btn1.setEnabled(false); // 수정 (삭제함)
 //		btn2.setEnabled(false);
 //		btn3.setEnabled(false); // 수정끝
-		
+
 		this.add(bgImgPan);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// 버튼의 정답판별
-		JButton btn = (JButton)e.getSource();
+		JButton btn = (JButton) e.getSource();
 		if ("btn1".equals(btn.getText())) {
 			if ("RED".equals(mcc.ans)) {
 				checkLabel.setVisible(true);
@@ -163,7 +163,7 @@ public class MaxColorPanel extends GameContainer implements MouseListener {
 				revalidate();
 				repaint();
 			}
-		}else if  ("btn2".equals(btn.getText())) {
+		} else if ("btn2".equals(btn.getText())) {
 			if ("BLUE".equals(mcc.ans)) {
 				checkLabel.setVisible(true);
 				revalidate();
@@ -173,7 +173,7 @@ public class MaxColorPanel extends GameContainer implements MouseListener {
 				revalidate();
 				repaint();
 			}
-		} else if   ("btn3".equals(btn.getText())){
+		} else if ("btn3".equals(btn.getText())) {
 			if ("YELLOW".equals(mcc.ans)) {
 				checkLabel.setVisible(true);
 				revalidate();
@@ -228,17 +228,17 @@ public class MaxColorPanel extends GameContainer implements MouseListener {
 	// 수정 (코드추가)
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
+
 	}
 
 	// 버튼 위에 마우스를 올리면 보더생기기
@@ -251,8 +251,8 @@ public class MaxColorPanel extends GameContainer implements MouseListener {
 		btn3 = (JButton) e.getSource();
 		btn3.setBorder(new LineBorder(Color.black, 2));
 	}
-	
-	@Override 
+
+	@Override
 	public void mouseExited(MouseEvent e) {
 		btn1 = (JButton) e.getSource();
 		btn1.setBorder(new LineBorder(Color.black, 0));

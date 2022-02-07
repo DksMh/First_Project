@@ -1,4 +1,4 @@
-package gameHowTo;
+package Life_game;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,10 +10,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-// 수정 
-// 2월 7일 - 62줄 추가
+// 수정
+// 2월 7일 - 59줄 추가
 
-public class GameHowTo extends JPanel implements ActionListener {
+public class GameHowTo_lg extends JPanel implements ActionListener {
 	JPanel pan1 = new JPanel();
 	JPanel pan2 = new JPanel();
 	JPanel pan3 = new JPanel();
@@ -29,7 +29,7 @@ public class GameHowTo extends JPanel implements ActionListener {
 
 	int count = 0;
 
-	public GameHowTo() {
+	public GameHowTo_lg() {
 		this.setBackground(new Color(37, 9, 9));
 		this.setLayout(null);
 		comm();
