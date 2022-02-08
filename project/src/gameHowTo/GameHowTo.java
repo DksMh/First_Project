@@ -9,6 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 // 수정 
 // 2월 7일 - 62줄 추가
@@ -48,12 +50,21 @@ public class GameHowTo extends JPanel implements ActionListener {
 
 		font1 = new Font("맑은 고딕", Font.PLAIN, 24);
 
-		next = new JButton("다음");
-		next.setBounds(720, 440, 80, 60);
-		prev = new JButton("이전");
-		prev.setBounds(25, 440, 80, 60);
-		exit = new JButton("종료");
-		exit.setBounds(720, 20, 80, 60);
+		next = new JButton(new ImageIcon("images/HowTo_right.png"));
+		next.setFocusPainted(false);
+		next.setBorderPainted(false);
+		next.setContentAreaFilled(false);
+		next.setBounds(720, 230, 80, 80);
+		prev = new JButton(new ImageIcon("images/HowTo_left.png"));
+		prev.setFocusPainted(false);
+		prev.setBorderPainted(false);
+		prev.setContentAreaFilled(false);
+		prev.setBounds(25, 230, 80, 80);
+		exit = new JButton(new ImageIcon("images/HowTo_exit.png"));
+		exit.setFocusPainted(false);
+		exit.setBorderPainted(false);
+		exit.setContentAreaFilled(false);
+		exit.setBounds(720, 20, 80, 80);
 
 		next.setBackground(Color.orange);
 		prev.setBackground(Color.pink);
@@ -80,7 +91,9 @@ public class GameHowTo extends JPanel implements ActionListener {
 		text.setHorizontalAlignment(JLabel.CENTER);
 		text.setBounds(10, 320, 550, 120);
 		text.setOpaque(true);
-		text.setBackground(Color.pink);
+		text.setBackground(Color.white);
+		Border c = new LineBorder(new Color(137, 170, 108), 7);
+		text.setBorder(c);
 
 		pan1.add(text);
 		pan1.add(gameImgPan);
@@ -101,7 +114,9 @@ public class GameHowTo extends JPanel implements ActionListener {
 		text.setHorizontalAlignment(JLabel.CENTER);
 		text.setBounds(10, 320, 550, 120);
 		text.setOpaque(true);
-		text.setBackground(Color.pink);
+		text.setBackground(Color.white);
+		Border c = new LineBorder(new Color(137, 170, 108), 7);
+		text.setBorder(c);
 
 		pan2.setVisible(false);
 		pan2.add(text);
@@ -123,7 +138,9 @@ public class GameHowTo extends JPanel implements ActionListener {
 		text.setHorizontalAlignment(JLabel.CENTER);
 		text.setBounds(10, 320, 550, 120);
 		text.setOpaque(true);
-		text.setBackground(Color.pink);
+		text.setBackground(Color.white);
+		Border c = new LineBorder(new Color(137, 170, 108), 7);
+		text.setBorder(c);
 
 		pan3.setVisible(false);
 		pan3.add(text);

@@ -21,8 +21,8 @@ import javax.swing.border.LineBorder;
 import gameContainer.GameContainer;
 
 // 수정
-// 2월 7일 - 136줄, 145줄, 162줄, 180줄, 184줄, 193줄, 271줄, 283줄, 776줄, 781줄
-// LifeGameConsole부분 오타수정 (6-7번째줄 수정)
+// 2월 7일 - 136줄, 145줄, 162줄, 180줄, 184줄, 193줄, 271줄, 283줄, 776줄, 781줄, LifeGameConsole부분 오타수정 (6-7번째줄 수정)
+// 2월 8일 - 추가와 삭제를 자세히 봐주세요!
 
 public class LifeGamePanel extends GameContainer implements MouseListener, MouseMotionListener {
 	// 배경
@@ -147,25 +147,28 @@ public class LifeGamePanel extends GameContainer implements MouseListener, Mouse
 		this.setLayout(null);
 
 		// 배경
-		bgImg = new ImageIcon("images/gamebg.png");
+		bgImg = new ImageIcon("images/backgroundImg.png");
 		bgImgPan = new JLabel(bgImg);
 		bgImgPan.setSize(1024, 768);
 
 		// 제출버튼
 		submit = new JButton("제출");
 		submit.setBounds(770, 650, 130, 50);
+		submit.setBackground(new Color(254, 178, 55)); // 수정 - 추가
 		font2 = new Font("맑은 고딕", Font.BOLD, 20);
+		submit.setVisible(false); // 수정 - 추가
+		submit.setFocusPainted(false); // 수정 - 추가
 		submit.setFont(font2);
 		bgImgPan.add(submit);
 		submit.addActionListener(this);
 
 		// 수정 (추가)
-		ght.setBounds(100, 100, 820, 530);
-		bgImgPan.add(ght);
-		ght.exit.addActionListener(this); // 수정끝
+		ght.setBounds(100, 100, 820, 530); // 추가
+		bgImgPan.add(ght); // 추가
+		ght.exit.addActionListener(this); // 삭제 - 수정끝
 
 		// 정답, 오답
-		checkIcon = new ImageIcon("images/o.png");
+		checkIcon = new ImageIcon("images/checked.png");
 		checkLabel = new JLabel(checkIcon);
 		xIcon = new ImageIcon("images/x.png");
 		xLabel = new JLabel(xIcon);
@@ -773,8 +776,14 @@ public class LifeGamePanel extends GameContainer implements MouseListener, Mouse
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// 수정 (추가)
+		// 수정 (삭제)
+//		if (e.getSource() == ght.exit) {
+//			ght.setVisible(false);
+//		} // 수정끝
+
+		// 수정 - 추가
 		if (e.getSource() == ght.exit) {
+			submit.setVisible(true);
 			ght.setVisible(false);
 		} // 수정끝
 

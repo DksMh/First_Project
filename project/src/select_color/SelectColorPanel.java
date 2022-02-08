@@ -28,10 +28,10 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 	private ImageIcon bgSK;
 	private JLabel bgSKPan;
 
-	// 컬러버튼
-	private JButton btn1;
-	private JButton btn2;
-	private JButton btn3;
+	// 컬러버튼 - (수정)
+	public JButton btn1;
+	public JButton btn2;
+	public JButton btn3;
 
 	private Color color;
 	private EmptyBorder b1;
@@ -63,12 +63,12 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 		this.setLayout(null);
 
 		// 배경
-		bgImg = new ImageIcon("images/gamebg.png");
+		bgImg = new ImageIcon("images/backgroundImg.png");
 		bgImgPan = new JLabel(bgImg);
 		bgImgPan.setSize(1024, 768);
 
 		// 스케치북
-		bgSK = new ImageIcon("images/sk.png");
+		bgSK = new ImageIcon("images/sketchbook_Color.png");
 		bgSKPan = new JLabel(bgSK);
 		bgSKPan.setBounds(150, 150, 720, 425);
 
@@ -103,7 +103,7 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 //		btn3.addMouseListener(this); // 수정끝
 
 		// 정답, 오답
-		checkIcon = new ImageIcon("images/o.png");
+		checkIcon = new ImageIcon("images/checked.png");
 		checkLabel = new JLabel(checkIcon);
 		xIcon = new ImageIcon("images/x.png");
 		xLabel = new JLabel(xIcon);
@@ -178,11 +178,11 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 	// 정답 판별하기
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// 수정 (추가)
+		// 수정 - 추가 및 삭제
 		if (e.getSource() == ght.exit) {
-			btn1.addMouseListener(this);
-			btn2.addMouseListener(this);
-			btn3.addMouseListener(this);
+			btn1.addMouseListener(SelectColorPanel.this);
+			btn2.addMouseListener(SelectColorPanel.this);
+			btn3.addMouseListener(SelectColorPanel.this);
 			btn1.setEnabled(true);
 			btn2.setEnabled(true);
 			btn3.setEnabled(true);
