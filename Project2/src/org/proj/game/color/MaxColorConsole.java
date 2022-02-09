@@ -1,4 +1,4 @@
-package max_colors;
+package org.proj.game.color;
 
 import java.awt.Color;
 
@@ -46,9 +46,9 @@ public class MaxColorConsole {
 		MaxAns();
 
 		// 갯수 확인
-//		System.out.println("RED의 개수 : " + c0);
-//		System.out.println("BLUE의 개수 : " + c1);
-//		System.out.println("YELLOW의 개수 : " + c2);
+		System.out.println("RED의 개수 : " + c0);
+		System.out.println("BLUE의 개수 : " + c1);
+		System.out.println("YELLOW의 개수 : " + c2);
 
 	}
 
@@ -88,8 +88,8 @@ public class MaxColorConsole {
 				c2++;
 			}
 //			System.out.print(arr[i]);
-		}
+//			}
 //		System.out.println(" ");
+		}
 	}
-
 }

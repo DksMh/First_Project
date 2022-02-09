@@ -1,39 +1,39 @@
-package select_color;
+package org.proj.game.color;
+
+import static org.proj.Resource.*;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import gameContainer.GameContainer;
-import gameHowTo.GameHowTo;
+import org.proj.RoundJButton;
+import org.proj.controller.Controller;
+import org.proj.view.GameView;
 
-public class SelectColorPanel extends GameContainer implements MouseListener {
-	// 배경
+public class SelectColorPanel extends GameView {
 	private ImageIcon bgImg;
 	private JLabel bgImgPan;
 
-	// 스케치북
 	private ImageIcon bgSK;
 	private JLabel bgSKPan;
 
-	// 컬러버튼 - (수정)
-	public JButton btn1;
-	public JButton btn2;
-	public JButton btn3;
+	private JButton btn1;
+	private JButton btn2;
+	private JButton btn3;
 
 	private Color color;
 	private EmptyBorder b1;
 
-	// 정답, 오답
 	private ImageIcon checkIcon;
 	private ImageIcon xIcon;
 	private JLabel checkLabel;
@@ -42,22 +42,42 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 	private Font font1;
 	private Font font2;
 
-	// 제목부분 글자와 색깔
 	private JLabel txtTitle;
 	private JLabel txtColor;
-
+	boolean howtoState = true;
+	int click = 0;
 	SelectColorConsole scc;
-	// 수정 (추가)
-	GameHowTo_sc ght; // 수정끝
 
-	@Override
-	public void gamePlay() {
-	} // 여기 수정하시면 됩니다^^
+	Timer timer;
+	ImageIcon pauseIcon = new ImageIcon("images/pause.png");
+	JButton pauseBtn = new JButton(pauseIcon);
+	
+	ImageIcon HowToIcon = new ImageIcon("images/HowTo_btn.png");
+	JButton howtoBtn = new JButton(HowToIcon);
+
+	GameHowTo_sc ght = new GameHowTo_sc();
 
 	public SelectColorPanel() {
-		ght = new GameHowTo_sc(); // 수정 (추가)
+		pauseBtn.addActionListener(this);
+		howtoBtn.addActionListener(this);
+	}
+
+	@Override
+	public void display() {
+		click = 0;
 		scc = new SelectColorConsole();
 		this.setLayout(null);
+
+		// 결과 알려주는 곳
+		this.add(resultPane);
+		resultPane.setBounds(FRAME_WIDTH / 2 - 300 / 2, FRAME_HEIGHT / 2 - 350 / 2, 300, 350);
+		resultPane.setVisible(false);
+
+		// 정지 버튼
+		pauseBtn.setBounds(920, 30, 50, 50);
+		pauseBtn.setBorderPainted(false);
+		pauseBtn.setContentAreaFilled(false);
+		this.add(pauseBtn);
 
 		// 배경
 		bgImg = new ImageIcon("images/backgroundImg.png");
@@ -68,11 +88,16 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 		bgSK = new ImageIcon("images/sketchbook_Color.png");
 		bgSKPan = new JLabel(bgSK);
 		bgSKPan.setBounds(150, 150, 720, 425);
+		
+		howtoBtn.setBounds(850, 30, 50, 50);
+		howtoBtn.setBorderPainted(false);
+		howtoBtn.setContentAreaFilled(false);
+		this.add(howtoBtn);
 
 		// 버튼
-		btn1 = new JButton("btn1");
-		btn2 = new JButton("btn2");
-		btn3 = new JButton("btn3");
+		btn1 = new RoundJButton("btn1");
+		btn2 = new RoundJButton("btn2");
+		btn3 = new RoundJButton("btn3");
 		btn1.setFocusPainted(false);
 		btn2.setFocusPainted(false);
 		btn3.setFocusPainted(false);
@@ -94,14 +119,20 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 		btn2.addActionListener(this);
 		btn3.addActionListener(this);
 
-		// 정답, 오답
+		if (howtoState) {
+			btn1.setEnabled(false);
+			btn2.setEnabled(false);
+			btn3.setEnabled(false);
+		}
+
 		checkIcon = new ImageIcon("images/checked.png");
 		checkLabel = new JLabel(checkIcon);
-		xIcon = new ImageIcon("images/x.png");
-		xLabel = new JLabel(xIcon);
 		checkLabel.setBounds(765, 105, 150, 150);
 		this.add(checkLabel);
 		checkLabel.setVisible(false);
+
+		xIcon = new ImageIcon("images/x.png");
+		xLabel = new JLabel(xIcon);
 		xLabel.setBounds(765, 105, 150, 150);
 		this.add(xLabel);
 		xLabel.setVisible(false);
@@ -122,6 +153,7 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 		} else {
 			txtColor = new JLabel("보라색");
 		}
+
 		font1 = new Font("맑은 고딕", Font.BOLD, 44);
 		txtColor.setFont(font1);
 		txtColor.setForeground(scc.paintTxt());
@@ -133,43 +165,43 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 		txtTitle.setForeground(Color.black);
 		txtTitle.setBounds(220, 25, 500, 100);
 
-		// 수정 (추가)
-		btn1.setEnabled(false);
-		btn2.setEnabled(false);
-		btn3.setEnabled(false);
 		ght.setBounds(100, 100, 820, 530);
 		bgImgPan.add(ght);
-		ght.exit.addActionListener(this); // 수정끝
+		ght.exit.addActionListener(this);
 
-		// 판넬 붙이기
 		bgSKPan.add(txtTitle);
 		bgSKPan.add(txtColor);
 		bgSKPan.add(btn1);
 		bgSKPan.add(btn2);
 		bgSKPan.add(btn3);
+
 		bgImgPan.add(bgSKPan);
-		
 		this.add(bgImgPan);
 	}
 
-	// 정답 판별하기
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// 수정 - 추가 및 삭제
-		if(e.getSource() == ght.exit) {
-				btn1.addMouseListener(SelectColorPanel.this);
-				btn2.addMouseListener(SelectColorPanel.this);
-				btn3.addMouseListener(SelectColorPanel.this);
-				btn1.setEnabled(true);
-				btn2.setEnabled(true);
-				btn3.setEnabled(true);
-				
-				ght.setVisible(false);
-		} // 수정끝
-		
+		if (click == 1) {
+			return;
+		}
+
+		if (e.getSource() == ght.exit) {
+			howtoState = false;
+			btn1.setEnabled(true);
+			btn2.setEnabled(true);
+			btn3.setEnabled(true);
+
+			ght.setVisible(false);
+		}
+
 		JButton btn = (JButton) e.getSource();
+		if (e.getSource() == howtoBtn) {
+			ght.setVisible(true);
+		}
+
 		if ("btn1".equals(btn.getText())) {
 			if (scc.ansColor == scc.arrBtn[0]) {
+				gametrue++;
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -179,9 +211,23 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 				repaint();
 			}
 		}
-
+//		if (e.getSource() == btn1) {
+//			if (scc.ansColor == scc.arrBtn[0]) {
+//				gameNum++;
+//				gametrue++;
+//				checkLabel.setVisible(true);
+//				revalidate();
+//				repaint();
+//			} else {
+//				gameNum++;
+//				xLabel.setVisible(true);
+//				revalidate();
+//				repaint();
+//			}
+//		}
 		if ("btn2".equals(btn.getText())) {
 			if (scc.ansColor == scc.arrBtn[1]) {
+				gametrue++;
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -194,6 +240,7 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 
 		if ("btn3".equals(btn.getText())) {
 			if (scc.ansColor == scc.arrBtn[2]) {
+				gametrue++;
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -203,41 +250,52 @@ public class SelectColorPanel extends GameContainer implements MouseListener {
 				repaint();
 			}
 		}
+		if (!(e.getSource() == pauseBtn || e.getSource() == ght.exit || e.getSource() == howtoBtn)) {
+			click++;
+			gameNum++;
+			next();
+		}
+
+		if (e.getSource() == pauseBtn) {
+			int yn = JOptionPane.showConfirmDialog(this,
+					new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER), "확인", JOptionPane.YES_NO_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
+			if (yn == 0) {
+				Controller c = Controller.getController();
+				gameNum = 0;
+				gametrue = 0;
+				c.Viewchange(MainPage);
+			}
+		}
+	}
+
+	public void next() {
+		// 딜레이 1.5초 주고 다음게임 시작
+		timer = new Timer(1500, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				checkLabel.setVisible(false);
+				xLabel.setVisible(false);
+				if (gameNum == endGameNum) {
+					resultPane.display();
+				} else {
+					Controller c = Controller.getController();
+					int n = (int) ((Math.random() * 100000) % 2);
+
+					if (n == 0) {
+						c.Viewchange(SelectColor);
+					} else {
+						c.Viewchange(MaxColor);
+					}
+				}
+				timer.stop();
+			}
+		});
+		timer.start();
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-	}
-
-	// 버튼 위에 마우스를 올리면 보더생기기
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		btn1 = (JButton) e.getSource();
-		btn1.setBorder(new LineBorder(Color.black, 2));
-		btn2 = (JButton) e.getSource();
-		btn2.setBorder(new LineBorder(Color.black, 2));
-		btn3 = (JButton) e.getSource();
-		btn3.setBorder(new LineBorder(Color.black, 2));
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		btn1 = (JButton) e.getSource();
-		btn1.setBorder(new LineBorder(Color.black, 0));
-		btn2 = (JButton) e.getSource();
-		btn2.setBorder(new LineBorder(Color.black, 0));
-		btn3 = (JButton) e.getSource();
-		btn3.setBorder(new LineBorder(Color.black, 0));
+	public String toString() {
+		return SelectColor;
 	}
 }

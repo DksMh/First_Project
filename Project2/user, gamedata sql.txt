@@ -1,0 +1,47 @@
+create user'proj'@'localhost' identified by '1234';
+use projdata;
+
+
+create table user(
+no int not null primary key auto_increment,
+name varchar(20) not null,
+id varchar(20) not null,
+password varchar(20) not null,
+age int not null
+);
+
+
+insert into user(name, id, password, age) values ('saram1', 'user1', 'user1', 62);
+insert into user(name, id, password, age) values ('saram2', 'user2', 'user2', 75);
+insert into user(name, id, password, age) values ('saram3', 'user3', 'user3', 69);
+
+create table gamedata(
+no int not null primary key auto_increment,
+id varchar(20) not null,
+game1 float,
+game2 float,
+game3 float,
+game4 float,
+game5 float,
+day date not null
+);
+
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user1', 80.0, 70.0, 85.0, 90.0, 80.0, '2022-01-02');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user1', 83.0, 72.0, 80.0, 86.0, 84.0, '2022-01-03');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user1', 85.0, 76.0, 85.0, 89.0, 82.0, '2022-01-04');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user1', 80.0, 75.0, 75.0, 80.0, 90.0, '2022-01-06');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user1', 83.0, 74.0, 80.0, 85.0, 93.0, '2022-01-07');
+
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user2', 70.0, 90.0, 85.0, 70.0, 70.0, '2022-01-04');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user2', 70.0, 90.0, 85.0, 80.0, 70.0, '2022-01-05');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user2', 80.0, 85.0, 85.0, 90.0, 65.0, '2022-01-06');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user2', 85.0, 90.0, 80.0, 85.0, 75.0, '2022-01-07');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user2', 80.0, 90.0, 85.0, 85.0, 75.0, '2022-01-08');
+
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user3', 80.0, 70.0, 70.0, 60.0, 75.0, '2022-01-03');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user3', 85.0, 75.0, 65.0, 65.0, 70.0, '2022-01-05');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user3', 85.0, 75.0, 60.0, 70.0, 80.0, '2022-01-06');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user3', 90.0, 80.0, 70.0, 75.0, 90.0, '2022-01-08');
+insert into gamedata(id, game1, game2, game3, game4, game5, day) values ('user3', 85.0, 80.0, 70.0, 80.0, 95.0, '2022-01-11');
+
+
