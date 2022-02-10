@@ -33,7 +33,7 @@ public class CardGame extends GameView {
 	ImageIcon pauseIcon = new ImageIcon("images/pause.png");
 	ImageIcon checkIcon = new ImageIcon("images/checked.png");
 	ImageIcon xIcon = new ImageIcon("images/x.png");
-	ImageIcon HowToIcon = new ImageIcon("images/HowTo_btn.png");
+	ImageIcon howtoIcon = new ImageIcon("images/HowTo_btn.png");
 	JLabel Title; // 횟수 보여주기
 	JLabel gameBack; // 흰색 배경
 	JLabel back; // 초록 배경
@@ -43,11 +43,11 @@ public class CardGame extends GameView {
 	JLabel xLabel;
 	RoundJButton bottomBtn01 = new RoundJButton("시작하기"); // 시작하기
 	JButton pauseBtn = new JButton(pauseIcon);
-	JButton howtoBtn = new JButton(HowToIcon);
+	JButton howtoBtn = new JButton(howtoIcon);
 	JButton[] Btn = new JButton[12]; // 카드 12개
 	String[] img = { // 카드 이미지 주소 배열
-			"card1.png", "card2.png", "card3.png", "card4.png", "card5.png", "card6.png", "card1.png", "card2.png",
-			"card3.png", "card4.png", "card5.png", "card6.png" };
+			"img01.png", "img02.png", "img03.png", "img04.png", "img05.png", "img06.png", "img01.png", "img02.png",
+			"img03.png", "img04.png", "img05.png", "img06.png" };
 
 	int sucessCount = 0;
 	int tryCount = 12;
@@ -58,7 +58,7 @@ public class CardGame extends GameView {
 	java.util.Timer countTimer;
 	int startCount;
 
-	GameHowTo_card ght = new GameHowTo_card(bottomBtn01);
+	GameHowTo_card ght = new GameHowTo_card(bottomBtn01, Btn);
 
 	public CardGame() {
 		pauseBtn.addActionListener(this);
@@ -134,8 +134,8 @@ public class CardGame extends GameView {
 			Btn[i].setFocusPainted(false);
 			Btn[i].setBorder(null);
 			Btn[i].setBackground(Color.white);
-//			Btn[i].addActionListener(this); 여기
-			Btn[i].setIcon(chageImage("card_Leaf.png"));
+//			Btn[i].addActionListener(this);
+			Btn[i].setIcon(chageImage("leaf.png"));
 			Btn[i].setEnabled(false);
 			cardBack.add(Btn[i]);
 		}
@@ -171,7 +171,6 @@ public class CardGame extends GameView {
 		countDown();
 
 		for (int i = 0; i < Btn.length; i++) {
-			Btn[i].setEnabled(true); // 여기
 			Btn[i].setIcon(chageImage(img[i]));
 		}
 
@@ -276,13 +275,21 @@ public class CardGame extends GameView {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton) e.getSource();
+
 		if (e.getSource() == howtoBtn) {
 			ght.setVisible(true);
 			bottomBtn01.setVisible(false);
+
+			for (int i = 0; i < Btn.length; i++) {
+				Btn[i].setVisible(false);
+			}
+
 		}
 
 		if (e.getSource() == pauseBtn) { // 정지버튼
-			int yn = JOptionPane.showConfirmDialog(CardGame.this, "게임을 종료하시겠습니까? ", "확인", JOptionPane.YES_NO_OPTION);
+			int yn = JOptionPane.showConfirmDialog(this,
+					new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER), "확인", JOptionPane.YES_NO_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
 
 			if (yn == 0) {
 				Controller c = Controller.getController();
@@ -327,6 +334,7 @@ public class CardGame extends GameView {
 				buttonIndexSave2 = index;
 
 				if (Btn[buttonIndexSave1] == Btn[buttonIndexSave2]) {
+//					tryCount = tryCount;
 				} else {
 					tryCount--;
 				}
@@ -342,20 +350,19 @@ public class CardGame extends GameView {
 						gameNum++;
 						gametrue++;
 						checkLabel.setVisible(true);
-						JOptionPane.showMessageDialog(CardGame.this, "수고하셨습니다.");
+						JOptionPane.showMessageDialog(CardGame.this, "ㅎㅇ");
 						next();
 					} else if (tryCount == 0) {
 						gameNum++;
 						gametrue++;
 						xLabel.setVisible(true);
-						JOptionPane.showMessageDialog(CardGame.this, "수고하셨습니다.");
+						JOptionPane.showMessageDialog(CardGame.this, "ㅎㅇ");
 						next();
 					}
 				} else {
 					if (tryCount == 0) {
 						gameNum++;
 						xLabel.setVisible(true);
-						JOptionPane.showMessageDialog(CardGame.this, "수고하셨습니다.");
 						for (int i = 0; i < 12; i++) {
 							Btn[i].setEnabled(false);
 						}
@@ -371,11 +378,22 @@ public class CardGame extends GameView {
 	}
 
 	public void next() {
-		if (gameNum == endGameNum) {
-			resultPane.display();
+		if (GameState == MiniGame) {
+
+			if (gameNum == endGameNum) {
+				resultPane.display();
+			} else {
+				Controller c = Controller.getController();
+				c.Viewchange(CARD);
+			}
 		} else {
-			Controller c = Controller.getController();
-			c.Viewchange(CARD);
+			if (gameNum == 4) {
+				Controller c = Controller.getController();
+				c.Viewchange(CUP);
+			} else {
+				Controller c = Controller.getController();
+				c.Viewchange(CARD);
+			}
 		}
 	}
 
