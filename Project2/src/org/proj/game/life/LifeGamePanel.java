@@ -36,8 +36,8 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 	ImageIcon pauseIcon = new ImageIcon("images/pause.png");
 	JButton pauseBtn = new JButton(pauseIcon);
 	ImageIcon howtoIcon = new ImageIcon("images/HowTo_Btn.png");
-	JButton howtoBtn = new JButton(howtoIcon); 
-	
+	JButton howtoBtn = new JButton(howtoIcon);
+
 	// 정답, 오답
 	private ImageIcon checkIcon;
 	private ImageIcon xIcon;
@@ -132,23 +132,24 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 	int a2num = 0;
 	int a3num = 0;
 	int a4num = 0;
-	
+
 	// 도전 횟수
 	int lifeRemaining = 2;
 	JLabel life;
-	
+
 	Color gray = new Color(252, 252, 252);
 
 	JButton submit;
 	static Timer timer;
-	
+
 	boolean howtoState = true;
 	GameHowTo_lg ght = new GameHowTo_lg();
-	
+
 	// 중복제거
 	String prev = null;
 	String now = null;
 	int count = 0;
+
 	public LifeGamePanel() {
 		pauseBtn.addActionListener(this);
 		howtoBtn.addActionListener(this);
@@ -157,37 +158,37 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 	@Override
 	public void display() {
 		// 중복제거
-		while(true) {
+		while (true) {
 			lgc = new LifeGameConsole();
-			if(count == 0) {
+			if (count == 0) {
 				prev = lgc.ArrLabel[lgc.k];
 				now = lgc.ArrLabel[lgc.k];
 				count++;
 				break;
-			}else {
+			} else {
 				prev = now;
 				now = lgc.ArrLabel[lgc.k];
 				count++;
 			}
-			
-			if(prev.equals(now)) {
+
+			if (prev.equals(now)) {
 				continue;
-			}else {
+			} else {
 				break;
 			}
 		}
-		
+
 		this.setLayout(null);
 
 		this.add(resultPane);
 		resultPane.setBounds(FRAME_WIDTH / 2 - 300 / 2, FRAME_HEIGHT / 2 - 350 / 2, 300, 350);
 		resultPane.setVisible(false);
-		
+
 		pauseBtn.setBounds(920, 30, 50, 50);
-		pauseBtn.setBorderPainted(false);    // 버튼의 외곽 투명하게 
-		pauseBtn.setContentAreaFilled(false);  // 만들어 주는 것
+		pauseBtn.setBorderPainted(false); // 버튼의 외곽 투명하게
+		pauseBtn.setContentAreaFilled(false); // 만들어 주는 것
 		this.add(pauseBtn);
-		
+
 		// 배경
 		bgImg = new ImageIcon("images/gamebg.png");
 		bgImgPan = new JLabel(bgImg);
@@ -198,12 +199,12 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 		submit.setBackground(new Color(254, 178, 55));
 		font2 = new Font("맑은 고딕", Font.BOLD, 20);
 		submit.setFocusPainted(false);
-		if(howtoState) {
-			submit.setVisible(false); 
-		}else {
-			submit.setVisible(true); 
+		if (howtoState) {
+			submit.setVisible(false);
+		} else {
+			submit.setVisible(true);
 		}
-		
+
 		submit.setFont(font2);
 		bgImgPan.add(submit);
 		submit.addActionListener(this);
@@ -211,7 +212,7 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 		ght.setBounds(100, 100, 820, 530); // 추가
 		bgImgPan.add(ght); // 추가
 		ght.exit.addActionListener(this);
-		
+
 		checkIcon = new ImageIcon("images/o.png");
 		checkLabel = new JLabel(checkIcon);
 		xIcon = new ImageIcon("images/x.png");
@@ -235,14 +236,11 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 		title.setBorder(c);
 		title.addMouseListener(this);
 		bgImgPan.add(title);
-		
-		
-		
-		howtoBtn.setBounds(850,30,50,50);
+
+		howtoBtn.setBounds(850, 30, 50, 50);
 		howtoBtn.setBorderPainted(false);
 		howtoBtn.setContentAreaFilled(false);
-		
-		
+
 		// 드래그 앤 드롭
 		a1 = new JLabel(lgc.a[lgc.b[0]]);
 		a2 = new JLabel(lgc.a[lgc.b[1]]);
@@ -316,7 +314,7 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 		bgImgPan.add(ans3);
 		bgImgPan.add(ans4);
 		bgImgPan.add(howtoBtn);
-		
+
 		life = new JLabel("도전횟수 : " + lifeRemaining);
 		life.setFont(font1);
 		life.setBounds(100, 50, 150, 50);
@@ -324,10 +322,9 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 		life.setOpaque(true);
 		life.setHorizontalAlignment(JLabel.CENTER);
 		bgImgPan.add(life);
-		
+
 		this.add(bgImgPan);
 	}
-
 
 	String[] s = new String[4];
 
@@ -794,21 +791,22 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == howtoBtn) {
+		if (e.getSource() == howtoBtn) {
 			ght.setVisible(true);
 			submit.setVisible(false);
 		}
-		
+
 		if (e.getSource() == ght.exit) {
 			howtoState = false;
 			submit.setVisible(true);
 			ght.setVisible(false);
 		}
-		
+
 		if (e.getSource() == submit) {
 			for (int i = 0; i < 4; i++) {
 				if (s[i] == null) {
-					JOptionPane.showMessageDialog(this,  new JLabel("빈칸이 있어요!", javax.swing.SwingConstants.CENTER),"알림",JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(this, new JLabel("빈칸이 있어요!", javax.swing.SwingConstants.CENTER), "알림",
+							JOptionPane.PLAIN_MESSAGE);
 					return;
 				}
 			}
@@ -819,50 +817,53 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 				}
 			}
 
-		if (w == 4) {
-			gameNum++;
-			gametrue++;
-			checkLabel.setVisible(true);
-			revalidate();
-			repaint();
-			w = 0;
-			a1num = 0;
-			a2num = 0;
-			a3num = 0;
-			a4num = 0;
-			next();
-		} else {
-			lifeRemaining--;
-			if (lifeRemaining == 0) {
-//					JOptionPane.showMessageDialog(bgImgPan, "게임 종료합니다!");
-				life.setText("도전횟수 : " + lifeRemaining);
+			if (w == 4) {
 				gameNum++;
-				xLabel.setVisible(true);
-				lifeRemaining = 2;
+				gametrue++;
+				checkLabel.setVisible(true);
+				revalidate();
+				repaint();
+				w = 0;
+				a1num = 0;
+				a2num = 0;
+				a3num = 0;
+				a4num = 0;
 				next();
-			} else if (lifeRemaining == 1) {
-				life.setText("도전횟수 : " + lifeRemaining);
-				JOptionPane.showMessageDialog(this,  new JLabel("곰곰히 생각해보세요!", javax.swing.SwingConstants.CENTER),"알림",JOptionPane.PLAIN_MESSAGE);
+			} else {
+				lifeRemaining--;
+				if (lifeRemaining == 0) {
+//					JOptionPane.showMessageDialog(bgImgPan, "게임 종료합니다!");
+					life.setText("도전횟수 : " + lifeRemaining);
+					gameNum++;
+					xLabel.setVisible(true);
+					lifeRemaining = 2;
+					next();
+				} else if (lifeRemaining == 1) {
+					life.setText("도전횟수 : " + lifeRemaining);
+					JOptionPane.showMessageDialog(this, new JLabel("곰곰히 생각해보세요!", javax.swing.SwingConstants.CENTER),
+							"알림", JOptionPane.PLAIN_MESSAGE);
+				}
+				a1num = 0;
+				a2num = 0;
+				a3num = 0;
+				a4num = 0;
+				a1.setBounds(100, 130, width, height);
+				a2.setBounds(100, 270, width, height);
+				a3.setBounds(100, 410, width, height);
+				a4.setBounds(100, 550, width, height);
+				ans1.setBackground(gray);
+				ans2.setBackground(gray);
+				ans3.setBackground(gray);
+				ans4.setBackground(gray);
+				w = 0;
+				revalidate();
+				repaint();
 			}
-			a1num = 0;
-			a2num = 0;
-			a3num = 0;
-			a4num = 0;
-			a1.setBounds(100, 130, width, height);
-			a2.setBounds(100, 270, width, height);
-			a3.setBounds(100, 410, width, height);
-			a4.setBounds(100, 550, width, height);
-			ans1.setBackground(gray);
-			ans2.setBackground(gray);
-			ans3.setBackground(gray);
-			ans4.setBackground(gray);
-			w = 0;
-			revalidate();
-			repaint();
 		}
-	}
 		if (e.getSource() == pauseBtn) {
-			int yn = JOptionPane.showConfirmDialog(this,  new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER),"확인",JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE);
+			int yn = JOptionPane.showConfirmDialog(this,
+					new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER), "확인", JOptionPane.YES_NO_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
 
 			if (yn == 0) {
 				Controller c = Controller.getController();
@@ -887,7 +888,7 @@ public class LifeGamePanel extends GameView implements MouseListener, MouseMotio
 						Controller c = Controller.getController();
 						c.Viewchange(LIFE);
 					}
-				}else {
+				} else {
 					if (gameNum == 8) {
 						Controller c = Controller.getController();
 						c.Viewchange(MaxColor);
