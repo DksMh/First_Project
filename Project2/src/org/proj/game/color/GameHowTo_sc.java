@@ -51,6 +51,9 @@ public class GameHowTo_sc extends JPanel implements ActionListener {
 		comm();
 		first();
 		last();
+		Play("sound/selectColor01.wav");
+		this.clip.close();
+
 		prev.addActionListener(this);
 		next.addActionListener(this);
 		exit.addActionListener(this);
@@ -80,7 +83,7 @@ public class GameHowTo_sc extends JPanel implements ActionListener {
 		exit.setBorderPainted(false);
 		exit.setContentAreaFilled(false);
 		exit.setBounds(720, 20, 80, 80);
-		
+
 		sound = new JButton(new ImageIcon("images/HowTo_sound.png"));
 		sound.setFocusPainted(false);
 		sound.setBorderPainted(false);
@@ -150,15 +153,15 @@ public class GameHowTo_sc extends JPanel implements ActionListener {
 			this.clip.stop();
 			count++;
 		}
-		if(e.getSource() == exit) {
+		if (e.getSource() == exit) {
 			this.clip.stop();
 		}
-		if(e.getSource() == sound) {
-			if(count == 0) {
+		if (e.getSource() == sound) {
+			if (count == 0) {
 				Play("sound/selectColor01.wav");
-			} else if(count == 1) {
+			} else if (count == 1) {
 				Play("sound/selectColor02.wav");
-			} 
+			}
 		}
 
 		if (e.getSource() == prev || e.getSource() == next) {

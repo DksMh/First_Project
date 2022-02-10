@@ -43,6 +43,8 @@ public class MainView extends GameView {
 	JButton recordBtn = new JButton(new ImageIcon("images/icon_record2.png"));
 	JButton exitBtn = new JButton(new ImageIcon("images/icon_logout2.png"));
 
+	JButton allGameBtn = new RoundJButton("종합게임");
+
 	JButton profileOkBtn = new RoundJButton("수정");
 	JButton profileCancelBtn = new RoundJButton("돌아가기");
 	String userIddb;
@@ -65,6 +67,7 @@ public class MainView extends GameView {
 		cupGameBtn.addActionListener(this);
 		lifeGameBtn.addActionListener(this);
 		colorGameBtn.addActionListener(this);
+		allGameBtn.addActionListener(this);
 
 		settingBtn.addActionListener(this);
 		profileOkBtn.addActionListener(this);
@@ -119,6 +122,8 @@ public class MainView extends GameView {
 		background.add(colorGameBtn);
 		background.add(recordBtn);
 		background.add(exitBtn);
+
+		background.add(allGameBtn);
 		background.add(title);
 
 		title.setBounds(30, 20, 200, 40);
@@ -147,8 +152,8 @@ public class MainView extends GameView {
 		lifeGameBtn.setBounds(FRAME_WIDTH / 2 - 150 / 2 + 190, FRAME_HEIGHT / 2 - 160, 150, 256);
 		colorGameBtn.setBounds(FRAME_WIDTH / 2 - 150 / 2 + 380, FRAME_HEIGHT / 2 - 160, 150, 256);
 
-//		recordBtn.setBounds(FRAME_WIDTH-180, 10,150,80);
-//		exitBtn.setBounds(FRAME_WIDTH-180, FRAME_HEIGHT-130,150,80);
+		allGameBtn.setBounds(FRAME_WIDTH / 2 - 150 / 2 - 190 + 75, 515, 380, 70);
+
 		recordBtn.setBounds(FRAME_WIDTH - 120, 10, 100, 100);
 		exitBtn.setBounds(FRAME_WIDTH - 120, FRAME_HEIGHT - 150, 100, 100);
 
@@ -166,6 +171,7 @@ public class MainView extends GameView {
 			recordBtn.setEnabled(false);
 			exitBtn.setEnabled(false);
 			settingBtn.setEnabled(false);
+			allGameBtn.setEnabled(false);
 
 			textname.setText(userNamedb);
 			textid.setText(userIddb);
@@ -234,8 +240,8 @@ public class MainView extends GameView {
 			recordBtn.setEnabled(true);
 			exitBtn.setEnabled(true);
 			settingBtn.setEnabled(true);
+			allGameBtn.setEnabled(true);
 
-//			// 아이콘 변수를 넣엇고
 //			Btn[i].setDisabledIcon();
 //			// T/F
 //			Btn[i].setEnabled();
@@ -302,6 +308,12 @@ public class MainView extends GameView {
 			Controller c = Controller.getController();
 			c.Viewchange(colorGame.toString());
 
+		}
+
+		if (e.getSource() == allGameBtn) {
+			GameState = AllGame;
+			Controller c = Controller.getController();
+			c.Viewchange(PlusMinus);
 		}
 	}
 

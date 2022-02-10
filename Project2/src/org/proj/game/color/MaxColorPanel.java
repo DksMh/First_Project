@@ -1,14 +1,6 @@
 package org.proj.game.color;
 
-import static org.proj.Resource.FRAME_HEIGHT;
-import static org.proj.Resource.FRAME_WIDTH;
-import static org.proj.Resource.MainPage;
-import static org.proj.Resource.MaxColor;
-import static org.proj.Resource.SelectColor;
-import static org.proj.Resource.endGameNum;
-import static org.proj.Resource.gameNum;
-import static org.proj.Resource.gametrue;
-import static org.proj.Resource.resultPane;
+import static org.proj.Resource.*;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -85,7 +77,7 @@ public class MaxColorPanel extends GameView {
 		pauseBtn.setContentAreaFilled(false);
 		this.add(pauseBtn);
 
-		bgImg = new ImageIcon("images/backgroundImg.png");
+		bgImg = new ImageIcon("images/gamebg.png");
 		bgImgPan = new JLabel(bgImg);
 		bgImgPan.setSize(1024, 768);
 		bgImgPan.setLayout(null);
@@ -165,7 +157,6 @@ public class MaxColorPanel extends GameView {
 
 		JButton btn = (JButton) e.getSource();
 		if ("btn1".equals(btn.getText())) {
-//			System.out.println("btn1");
 			if ("RED".equals(mcc.ans)) {
 				gametrue++;
 				checkLabel.setVisible(true);
@@ -177,7 +168,6 @@ public class MaxColorPanel extends GameView {
 				repaint();
 			}
 		} else if ("btn2".equals(btn.getText())) {
-//			System.out.println("btn2");
 			if ("BLUE".equals(mcc.ans)) {
 				gametrue++;
 				checkLabel.setVisible(true);
@@ -189,7 +179,6 @@ public class MaxColorPanel extends GameView {
 				repaint();
 			}
 		} else if ("btn3".equals(btn.getText())) {
-//			System.out.println("btn3");
 			if ("YELLOW".equals(mcc.ans)) {
 				gametrue++;
 				checkLabel.setVisible(true);
@@ -210,7 +199,9 @@ public class MaxColorPanel extends GameView {
 		}
 
 		if (e.getSource() == pauseBtn) {
-			int yn = JOptionPane.showConfirmDialog(this,  new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER),"확인",JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE);
+			int yn = JOptionPane.showConfirmDialog(this,
+					new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER), "확인", JOptionPane.YES_NO_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
 
 			if (yn == 0) {
 				Controller c = Controller.getController();
@@ -228,18 +219,29 @@ public class MaxColorPanel extends GameView {
 			public void actionPerformed(ActionEvent e) {
 				checkLabel.setVisible(false);
 				xLabel.setVisible(false);
-				if (gameNum == endGameNum) {
-					resultPane.display();
-				} else {
-					Controller c = Controller.getController();
-					int n = (int) ((Math.random() * 100000) % 2);
+				if (GameState == MiniGame) {
+					if (gameNum == endGameNum) {
+						resultPane.display();
+					} else {
+						Controller c = Controller.getController();
+						int n = (int) ((Math.random() * 100000) % 2);
 
-					if (n == 0) {
+						if (n == 0) {
+							c.Viewchange(SelectColor);
+						} else {
+							c.Viewchange(MaxColor);
+						}
+					}
+				} else {
+					if (gameNum == 10) {
+						Controller c = Controller.getController();
 						c.Viewchange(SelectColor);
 					} else {
+						Controller c = Controller.getController();
 						c.Viewchange(MaxColor);
 					}
 				}
+
 				timer.stop();
 			}
 		});

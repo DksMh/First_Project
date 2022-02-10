@@ -53,6 +53,9 @@ public class GameHowTo_lg extends JPanel implements ActionListener {
 		first();
 		mid();
 		last();
+		Play("sound/life01.wav");
+		this.clip.close();
+
 		prev.addActionListener(this);
 		next.addActionListener(this);
 		exit.addActionListener(this);
@@ -82,7 +85,7 @@ public class GameHowTo_lg extends JPanel implements ActionListener {
 		exit.setBorderPainted(false);
 		exit.setContentAreaFilled(false);
 		exit.setBounds(720, 20, 80, 80);
-		
+
 		sound = new JButton(new ImageIcon("images/HowTo_sound.png"));
 		sound.setFocusPainted(false);
 		sound.setBorderPainted(false);
@@ -178,15 +181,15 @@ public class GameHowTo_lg extends JPanel implements ActionListener {
 			this.clip.stop();
 			count++;
 		}
-		if(e.getSource() == exit) {
+		if (e.getSource() == exit) {
 			this.clip.stop();
 		}
-		if(e.getSource() == sound) {
-			if(count == 0) {
+		if (e.getSource() == sound) {
+			if (count == 0) {
 				Play("sound/life01.wav");
-			} else if(count == 1) {
+			} else if (count == 1) {
 				Play("sound/life02.wav");
-			} else if(count == 2) {
+			} else if (count == 2) {
 				Play("sound/life03.wav");
 			}
 		}

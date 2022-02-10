@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -51,9 +52,9 @@ public class SelectColorPanel extends GameView {
 	Timer timer;
 	ImageIcon pauseIcon = new ImageIcon("images/pause.png");
 	JButton pauseBtn = new JButton(pauseIcon);
-	
-	ImageIcon HowToIcon = new ImageIcon("images/HowTo_btn.png");
-	JButton howtoBtn = new JButton(HowToIcon);
+
+	ImageIcon howtoIcon = new ImageIcon("images/HowTo_Btn.png");
+	JButton howtoBtn = new JButton(howtoIcon);
 
 	GameHowTo_sc ght = new GameHowTo_sc();
 
@@ -77,10 +78,9 @@ public class SelectColorPanel extends GameView {
 		pauseBtn.setBounds(920, 30, 50, 50);
 		pauseBtn.setBorderPainted(false);
 		pauseBtn.setContentAreaFilled(false);
-		this.add(pauseBtn);
 
 		// 배경
-		bgImg = new ImageIcon("images/backgroundImg.png");
+		bgImg = new ImageIcon("images/gamebg.png");
 		bgImgPan = new JLabel(bgImg);
 		bgImgPan.setSize(1024, 768);
 
@@ -88,11 +88,10 @@ public class SelectColorPanel extends GameView {
 		bgSK = new ImageIcon("images/sketchbook_Color.png");
 		bgSKPan = new JLabel(bgSK);
 		bgSKPan.setBounds(150, 150, 720, 425);
-		
+
 		howtoBtn.setBounds(850, 30, 50, 50);
 		howtoBtn.setBorderPainted(false);
 		howtoBtn.setContentAreaFilled(false);
-		this.add(howtoBtn);
 
 		// 버튼
 		btn1 = new RoundJButton("btn1");
@@ -171,6 +170,8 @@ public class SelectColorPanel extends GameView {
 
 		bgSKPan.add(txtTitle);
 		bgSKPan.add(txtColor);
+		bgImgPan.add(pauseBtn);
+		bgImgPan.add(howtoBtn);
 		bgSKPan.add(btn1);
 		bgSKPan.add(btn2);
 		bgSKPan.add(btn3);
@@ -185,6 +186,11 @@ public class SelectColorPanel extends GameView {
 			return;
 		}
 
+		if (e.getSource() == howtoBtn) {
+			howtoState = true;
+			ght.setVisible(true);
+		}
+
 		if (e.getSource() == ght.exit) {
 			howtoState = false;
 			btn1.setEnabled(true);
@@ -195,9 +201,6 @@ public class SelectColorPanel extends GameView {
 		}
 
 		JButton btn = (JButton) e.getSource();
-		if (e.getSource() == howtoBtn) {
-			ght.setVisible(true);
-		}
 
 		if ("btn1".equals(btn.getText())) {
 			if (scc.ansColor == scc.arrBtn[0]) {
@@ -250,7 +253,7 @@ public class SelectColorPanel extends GameView {
 				repaint();
 			}
 		}
-		if (!(e.getSource() == pauseBtn || e.getSource() == ght.exit || e.getSource() == howtoBtn)) {
+		if ((e.getSource() != pauseBtn && e.getSource() != ght.exit) && (e.getSource() != howtoBtn)) {
 			click++;
 			gameNum++;
 			next();
@@ -276,16 +279,26 @@ public class SelectColorPanel extends GameView {
 			public void actionPerformed(ActionEvent e) {
 				checkLabel.setVisible(false);
 				xLabel.setVisible(false);
-				if (gameNum == endGameNum) {
-					resultPane.display();
-				} else {
-					Controller c = Controller.getController();
-					int n = (int) ((Math.random() * 100000) % 2);
-
-					if (n == 0) {
-						c.Viewchange(SelectColor);
+				if (GameState == MiniGame) {
+					if (gameNum == endGameNum) {
+						resultPane.display();
 					} else {
-						c.Viewchange(MaxColor);
+						Controller c = Controller.getController();
+						int n = (int) ((Math.random() * 100000) % 2);
+
+						if (n == 0) {
+							c.Viewchange(SelectColor);
+						} else {
+							c.Viewchange(MaxColor);
+						}
+					}
+				} else {
+					if (gameNum == 12) {
+						Controller c = Controller.getController();
+						resultPane.display();
+					} else {
+						Controller c = Controller.getController();
+						c.Viewchange(SelectColor);
 					}
 				}
 				timer.stop();

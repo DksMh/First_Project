@@ -1,15 +1,19 @@
 package org.proj.game.cup;
 
 import static org.proj.Resource.MainPage;
+import static org.proj.Resource.MiniGame;
 import static org.proj.Resource.PlusMinus;
 import static org.proj.Resource.endGameNum;
 import static org.proj.Resource.gameNum;
 import static org.proj.Resource.gametrue;
+import static org.proj.Resource.nextGameNum;
 import static org.proj.Resource.resultPane;
 import static org.proj.Resource.CARD;
 import static org.proj.Resource.CUP;
+import static org.proj.Resource.LIFE;
 import static org.proj.Resource.FRAME_HEIGHT;
 import static org.proj.Resource.FRAME_WIDTH;
+import static org.proj.Resource.GameState;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -37,30 +41,30 @@ public class CupGamePanel extends GameView {
 	ImageIcon xIcon = new ImageIcon("images/x.png");
 	ImageIcon cupBorderIcon = new ImageIcon("images/cup_stroke.png"); // border있는 컵 그림
 
-	 JLabel backLabel;
-	 JLabel gameBackLabel;
-	 JLabel checkLabel;
-	 JLabel xLabel;
-	 JLabel manualLabel;
-	 JButton pauseBtn = new JButton(pauseIcon);
-	 JButton playBtn = new JButton("시작하기");
+	JLabel backLabel;
+	JLabel gameBackLabel;
+	JLabel checkLabel;
+	JLabel xLabel;
+	JLabel manualLabel;
+	JButton pauseBtn = new JButton(pauseIcon);
+	JButton playBtn = new JButton("시작하기");
 
-	 Timer timer;
-	 javax.swing.Timer timer2;
-	 javax.swing.Timer otherCupTtimer;
+	Timer timer;
+	javax.swing.Timer timer2;
+	javax.swing.Timer otherCupTtimer;
 
-	 int startBtn;
+	int startBtn;
 
-	 int click = 0;
+	int click = 0;
 
-	 boolean flag;
+	boolean flag;
 
-	 JLabel[] balls = new JLabel[3];
+	JLabel[] balls = new JLabel[3];
 
-	 Cup[] cups = new Cup[3];
+	Cup[] cups = new Cup[3];
 
 	public CupGamePanel() {
-		
+
 		playBtn.addActionListener(this);
 		pauseBtn.addActionListener(this);
 	}
@@ -73,9 +77,9 @@ public class CupGamePanel extends GameView {
 		this.setBounds(0, 0, 1024, 768);
 
 		this.add(resultPane);
-		resultPane.setBounds(FRAME_WIDTH/2-300/2, FRAME_HEIGHT/2-350/2, 300, 350);
+		resultPane.setBounds(FRAME_WIDTH / 2 - 300 / 2, FRAME_HEIGHT / 2 - 350 / 2, 300, 350);
 		resultPane.setVisible(false);
-		
+
 		// 엑스 이미지
 		xLabel = new JLabel(xIcon);
 		xLabel.setBounds(750, 20, 150, 150);
@@ -85,12 +89,12 @@ public class CupGamePanel extends GameView {
 		checkLabel = new JLabel(checkIcon);
 		checkLabel.setBounds(750, 20, 150, 150);
 		checkLabel.setVisible(false);
-		
+
 		manualLabel = new JLabel("공이 들어있는 컵을 선택하세요");
 		manualLabel.setBounds(230, 150, 550, 50);
 		manualLabel.setHorizontalAlignment(JLabel.CENTER);
 		manualLabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
-		
+
 		// 일시정지 버튼
 		pauseBtn.setBounds(920, 30, 50, 50);
 		pauseBtn.setBorderPainted(false);
@@ -101,11 +105,7 @@ public class CupGamePanel extends GameView {
 		playBtn.setBackground(Color.ORANGE);
 		playBtn.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		playBtn.setVisible(true);
-//		// 컵 생성
-//		for (int i = 0; i < cups.length; i++) {
-//			this.add(cups[i]);
-//		}
-//		
+
 		backLabel = new JLabel(backIcon);
 		backLabel.setBounds(0, 0, 1024, 768);
 
@@ -120,15 +120,15 @@ public class CupGamePanel extends GameView {
 			cups[i].setEnabled(false);
 			backLabel.add(cups[i]);
 		}
-		
+
 		cups[0].x = 230;
 		cups[1].x = 430;
 		cups[2].x = 630;
-		
+
 		cups[0].setBounds(cups[0].x, cups[0].y, cups[0].w, cups[0].h);
 		cups[1].setBounds(cups[1].x, cups[1].y, cups[0].w, cups[0].h);
 		cups[2].setBounds(cups[2].x, cups[2].y, cups[0].w, cups[0].h);
-		
+
 		// 공 생성
 		for (int i = 0; i < balls.length; i++) {
 			balls[i] = new JLabel(ballIcon);
@@ -148,7 +148,6 @@ public class CupGamePanel extends GameView {
 		gameBackLabel.setBounds(130, 60, 750, 580);
 
 		// 초록 배경
-		
 
 		backLabel.add(manualLabel);
 		backLabel.add(xLabel);
@@ -308,13 +307,13 @@ public class CupGamePanel extends GameView {
 
 		ct.start();
 	}
-	
+
 	public void labelBorder(boolean flag, JLabel JLabel, JButton JButton) {
 		flag = true;
 		JLabel.setVisible(flag);
 		JButton.setIcon(cupBorderIcon);
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton) e.getSource();
@@ -341,7 +340,7 @@ public class CupGamePanel extends GameView {
 			cupUp(2);
 			labelBorder(flag, xLabel, cups[2]);
 			otherCupUp(1, 0);
-		} else if(playBtn == btn) {
+		} else if (playBtn == btn) {
 			if (startBtn == 1) {
 				return;
 			}
@@ -350,16 +349,19 @@ public class CupGamePanel extends GameView {
 			cupUpDown();
 
 			startBtn++;
-		} 
-		if(!((e.getSource()== pauseBtn)||(e.getSource()==playBtn))) {
+		}
+		if (!((e.getSource() == pauseBtn) || (e.getSource() == playBtn))) {
 			gameNum++;
+			System.out.println("되나?");
 			next();
 		}
-		
-		if(e.getSource() == pauseBtn) {
-			int yn = JOptionPane.showConfirmDialog(this,  new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER),"확인",JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE);
-			
-			if(yn==0) {
+
+		if (e.getSource() == pauseBtn) {
+			int yn = JOptionPane.showConfirmDialog(this,
+					new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER), "확인", JOptionPane.YES_NO_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
+
+			if (yn == 0) {
 				Controller c = Controller.getController();
 				gameNum = 0;
 				gametrue = 0;
@@ -367,24 +369,35 @@ public class CupGamePanel extends GameView {
 			}
 		}
 	}
-	
+
 	public void next() {
 		// 딜레이 1.5초 주고 다음게임 시작
-		timer2 = new  javax.swing.Timer(2500, new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						if(gameNum==endGameNum) {
-							resultPane.display();
-						}else {
-							Controller c = Controller.getController();
-							c.Viewchange(CUP);					
-						}
-						timer2.stop();
+		timer2 = new javax.swing.Timer(2500, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (GameState == MiniGame) {
+
+					if (gameNum == endGameNum) {
+						resultPane.display();
+					} else {
+						Controller c = Controller.getController();
+						c.Viewchange(CUP);
 					}
-				});
+				} else {
+					if (gameNum == 6) {
+						Controller c = Controller.getController();
+						c.Viewchange(LIFE);
+					} else {
+						Controller c = Controller.getController();
+						c.Viewchange(CUP);
+					}
+				}
+				timer2.stop();
+			}
+		});
 		timer2.start();
 	}
-	
+
 	@Override
 	public String toString() {
 		return CUP;

@@ -282,7 +282,7 @@ public class CardGame extends GameView {
 		}
 
 		if (e.getSource() == pauseBtn) { // 정지버튼
-			int yn = JOptionPane.showConfirmDialog(this,  new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER),"확인",JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE);
+			int yn = JOptionPane.showConfirmDialog(CardGame.this, "게임을 종료하시겠습니까? ", "확인", JOptionPane.YES_NO_OPTION);
 
 			if (yn == 0) {
 				Controller c = Controller.getController();
@@ -342,17 +342,20 @@ public class CardGame extends GameView {
 						gameNum++;
 						gametrue++;
 						checkLabel.setVisible(true);
+						JOptionPane.showMessageDialog(CardGame.this, "수고하셨습니다.");
 						next();
 					} else if (tryCount == 0) {
 						gameNum++;
 						gametrue++;
 						xLabel.setVisible(true);
+						JOptionPane.showMessageDialog(CardGame.this, "수고하셨습니다.");
 						next();
 					}
 				} else {
 					if (tryCount == 0) {
 						gameNum++;
 						xLabel.setVisible(true);
+						JOptionPane.showMessageDialog(CardGame.this, "수고하셨습니다.");
 						for (int i = 0; i < 12; i++) {
 							Btn[i].setEnabled(false);
 						}

@@ -36,13 +36,8 @@ public class PlusMinus extends GameView {
 	int click;
 
 	public PlusMinus() {
-//		choiceBtn[0] = new RoundJButton();
-//		choiceBtn[1] = new RoundJButton();
-//		choiceBtn[2] = new RoundJButton();
-//		choiceBtn[3] = new RoundJButton();
 
 		pauseBtn.addActionListener(this);
-//		display();
 	}
 
 	@Override
@@ -68,10 +63,10 @@ public class PlusMinus extends GameView {
 		manualLabel.setBounds(320, 310, 400, 50);
 		manualLabel.setHorizontalAlignment(JLabel.CENTER);
 		manualLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-		this.add(manualLabel);
+		bgLabel.add(manualLabel);
 
 		quizLabel = new JLabel(gp.question);
-		quizLabel.setFont(new Font("Gothic", Font.BOLD, 115));
+		quizLabel.setFont(new Font("맑은 고딕", Font.BOLD, 110));
 		quizLabel.setForeground(new Color(255, 127, 0));
 		quizLabel.setBounds(315, 140, 400, 200);
 
@@ -80,7 +75,7 @@ public class PlusMinus extends GameView {
 			choiceBtn[i] = new RoundJButton();
 			choiceBtn[i].setText(Integer.toString(gp.answerArr[i]));
 			choiceBtn[i].setBackground(Color.orange);
-			choiceBtn[i].setFont(new Font("Gothic", Font.BOLD, 70));
+			choiceBtn[i].setFont(new Font("맑은 고딕", Font.BOLD, 70));
 			choiceBtn[i].setForeground(Color.WHITE);
 		}
 
@@ -99,22 +94,22 @@ public class PlusMinus extends GameView {
 		pauseBtn.setContentAreaFilled(false); // 만들어 주는 것
 
 		checkLabel.setBounds(700, 20, 150, 150);
-		this.add(checkLabel);
+		bgLabel.add(checkLabel);
 		checkLabel.setVisible(false);
 		xLabel.setBounds(700, 20, 150, 150);
-		this.add(xLabel);
+		bgLabel.add(xLabel);
 		xLabel.setVisible(false);
 
-		this.add(pauseBtn);
+		bgLabel.add(pauseBtn);
 
-		this.add(choiceBtn[0]);
-		this.add(choiceBtn[1]);
-		this.add(choiceBtn[2]);
-		this.add(choiceBtn[3]);
+		bgLabel.add(choiceBtn[0]);
+		bgLabel.add(choiceBtn[1]);
+		bgLabel.add(choiceBtn[2]);
+		bgLabel.add(choiceBtn[3]);
 
-		this.add(quizLabel);
+		bgLabel.add(quizLabel);
 
-		this.add(pmbgLabel);
+		bgLabel.add(pmbgLabel);
 
 		this.add(bgLabel);
 
@@ -132,7 +127,7 @@ public class PlusMinus extends GameView {
 		}
 
 		if (e.getSource() == choiceBtn[0]) {
-			gameNum++;
+
 			if (gp.answer == Integer.parseInt(choiceBtn[0].getText())) {
 				gametrue++;
 				choiceBtn[0].setBackground(new Color(33, 139, 34));
@@ -147,13 +142,11 @@ public class PlusMinus extends GameView {
 				repaint();
 			}
 
-			next();
 		}
 		if (e.getSource() == choiceBtn[1]) {
-			gameNum++;
 			if (gp.answer == Integer.parseInt(choiceBtn[1].getText())) {
-				gametrue++;
 				choiceBtn[1].setBackground(new Color(33, 139, 34));
+				gametrue++;
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -163,13 +156,11 @@ public class PlusMinus extends GameView {
 				revalidate();
 				repaint();
 			}
-			next();
 		}
 		if (e.getSource() == choiceBtn[2]) {
-			gameNum++;
 			if (gp.answer == Integer.parseInt(choiceBtn[2].getText())) {
-				gametrue++;
 				choiceBtn[2].setBackground(new Color(33, 139, 34));
+				gametrue++;
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -179,13 +170,11 @@ public class PlusMinus extends GameView {
 				revalidate();
 				repaint();
 			}
-			next();
 		}
 		if (e.getSource() == choiceBtn[3]) {
-			gameNum++;
 			if (gp.answer == Integer.parseInt(choiceBtn[3].getText())) {
-				gametrue++;
 				choiceBtn[3].setBackground(new Color(33, 139, 34));
+				gametrue++;
 				checkLabel.setVisible(true);
 				revalidate();
 				repaint();
@@ -195,11 +184,19 @@ public class PlusMinus extends GameView {
 				revalidate();
 				repaint();
 			}
+
+		}
+
+		if (e.getSource() instanceof JButton && e.getSource() != pauseBtn) {
+			gameNum++;
+			click++;
 			next();
 		}
 
 		if (e.getSource() == pauseBtn) {
-			int yn = JOptionPane.showConfirmDialog(this,  new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER),"확인",JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE);
+			int yn = JOptionPane.showConfirmDialog(this,
+					new JLabel("게임을 종료하시겠습니까? ", javax.swing.SwingConstants.CENTER), "확인", JOptionPane.YES_NO_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
 
 			if (yn == 0) {
 				Controller c = Controller.getController();
@@ -208,7 +205,7 @@ public class PlusMinus extends GameView {
 				c.Viewchange(MainPage);
 			}
 		}
-		click++;
+
 	}
 
 	public void next() {
@@ -216,11 +213,22 @@ public class PlusMinus extends GameView {
 		timer = new Timer(1500, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (gameNum == endGameNum) {
-					resultPane.display();
+				if (GameState == MiniGame) {
+
+					if (gameNum == endGameNum) {
+						resultPane.display();
+					} else {
+						Controller c = Controller.getController();
+						c.Viewchange(PlusMinus);
+					}
 				} else {
-					Controller c = Controller.getController();
-					c.Viewchange(PlusMinus);
+					if (gameNum == 2) {
+						Controller c = Controller.getController();
+						c.Viewchange(CARD);
+					} else {
+						Controller c = Controller.getController();
+						c.Viewchange(PlusMinus);
+					}
 				}
 				timer.stop();
 			}
