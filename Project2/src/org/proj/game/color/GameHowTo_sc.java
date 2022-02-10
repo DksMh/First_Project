@@ -4,7 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,17 +29,32 @@ public class GameHowTo_sc extends JPanel implements ActionListener{
 	public JButton exit;
 
 	private Font font1;
+	private JButton sound;
+	private Clip clip;
 	
 	int count = 0;
-
+	
+	public void Play(String fileName) {
+		try {
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(fileName));
+			clip = AudioSystem.getClip();
+			clip.open(ais);
+			clip.start();
+		} catch (Exception ex) {
+		}
+	}
 	public GameHowTo_sc() {
 		this.setBackground(new Color(37,9,9));
 		this.setLayout(null);
 		comm();
 		first();
 		last();
+		Play("sound/selectColor01.wav");
+		this.clip.close();
+		
 		prev.addActionListener(this);
 		next.addActionListener(this);
+		sound.addActionListener(this);
 		
 	}
 
@@ -119,12 +138,20 @@ public class GameHowTo_sc extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == prev) {
+			this.clip.stop();
 			count--;
 		}
 		if(e.getSource() == next) {
+			this.clip.stop();
 			count++;
 		}
-		
+		if (e.getSource() == sound) {
+			if (count == 0) {
+				Play("sound/selectColor01.wav");
+			} else if (count == 1) {
+				Play("sound/selectColor02.wav");
+			}
+		}
 		if(e.getSource() == prev || e.getSource() == next) {
 			if(count == 0) {
 				prev.setVisible(false);
