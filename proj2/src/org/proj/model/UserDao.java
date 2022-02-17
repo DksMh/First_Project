@@ -223,6 +223,7 @@ public class UserDao {
 		}
 		// 로그인 승인
 		// 아이디 비밀번호 일치하는 객체가 있으면 true 반환
+		
 		public boolean loginApproval(UserDto dto) {
 			init();
 			if(userVector.contains(dto)) {

@@ -56,9 +56,10 @@ public class CardGame extends GameView {
 	int buttonIndexSave2 = 0; // 두번째 선택된 카드 인덱스 저장
 	int openCount = 0; // 카드가 2개 뒤집히면 닫히기 전까지 다음 카드 안열리게 하는 변수
 	Timer timer;
+	Timer timer2;
 	java.util.Timer countTimer;
 	int startCount;
-
+	boolean end = false;
 	GameHowTo_card ght = new GameHowTo_card(bottomBtn01, Btn);
 
 	public CardGame() {
@@ -69,6 +70,7 @@ public class CardGame extends GameView {
 	
 	@Override
 	public void display() {
+		end = false;
 		sucessCount = 0;
 		tryCount = 12;
 		startCount = 0;
@@ -278,6 +280,9 @@ public class CardGame extends GameView {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(end) {
+			return;
+		}
 		JButton btn = (JButton) e.getSource();
 		if(e.getSource() == howtoBtn) {
 			ght.setVisible(true);
@@ -347,12 +352,14 @@ public class CardGame extends GameView {
 					openCount = 0;
 					sucessCount++;
 					if (sucessCount == 6) {
+						end = true;
 						gameNum++;
 						gametrue++;
 						bgm.playEffect("true.wav");
 						checkLabel.setVisible(true);
 						next();
 					} else if (tryCount == 0) {
+						end = true;
 						gameNum++;
 						gametrue++;
 						bgm.playEffect("false.wav");
@@ -361,6 +368,7 @@ public class CardGame extends GameView {
 					}
 				} else {
 					if (tryCount == 0) {
+						end = true;
 						gameNum++;
 						bgm.playEffect("false.wav");
 						xLabel.setVisible(true);
@@ -380,7 +388,7 @@ public class CardGame extends GameView {
 
 	public void next() {
 		// 딜레이 1.5초 주고 다음게임 시작
-				timer = new Timer(1500, new ActionListener() {
+		timer2 = new Timer(1500, new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if (GameState == MiniGame) {
@@ -400,10 +408,10 @@ public class CardGame extends GameView {
 								c.Viewchange(CARD);
 							}
 						}
-						timer.stop();
+						timer2.stop();
 					}
 				});
-				timer.start();
+		timer2.start();
 			}
 
 	@Override

@@ -11,15 +11,14 @@ import javax.swing.JFrame;
 
 public class BGM{
 	Clip clip;
-	boolean stop = false;
-	String name;
+	public Clip clipNarr;
 	public void Play(String fileName, boolean loop) {
 		try {
 			AudioInputStream ais = AudioSystem.getAudioInputStream(new File("sound/bgm/"+fileName));
 			clip = AudioSystem.getClip();
 			clip.open(ais);
 //			FloatControl gainControl = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
-//			gainControl.setValue(-2.0f);
+//			gainControl.setValue(-1.0f);
 			clip.start();
 			if(loop) clip.loop(-1);
 		} catch (Exception ex) {
@@ -43,10 +42,18 @@ public class BGM{
 		try {
 			AudioInputStream ais = AudioSystem.getAudioInputStream(new File("sound/effect/"+effectName));
 			Clip clip = AudioSystem.getClip();
-//			FloatControl gainControl = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
-//			gainControl.setValue(-1.0f);
 			clip.open(ais);
 			clip.start();
+		} catch (Exception ex) {
+		}
+	}
+	
+	public void playNar(String narName) {
+		try {
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new File("sound/"+narName));
+			clipNarr = AudioSystem.getClip();
+			clipNarr.open(ais);
+			clipNarr.start();
 		} catch (Exception ex) {
 		}
 	}

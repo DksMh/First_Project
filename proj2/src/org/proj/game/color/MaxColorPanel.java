@@ -157,7 +157,7 @@ public class MaxColorPanel extends GameView{
 
 		JButton btn = (JButton) e.getSource();
 		if ("btn1".equals(btn.getText())) {
-			if ("RED".equals(mcc.ans)) {
+			if ("RED".equals(mcc.answer)) {
 				bgm.playEffect("true.wav");
 				gametrue++;
 				checkLabel.setVisible(true);
@@ -170,7 +170,7 @@ public class MaxColorPanel extends GameView{
 				repaint();
 			}
 		} else if ("btn2".equals(btn.getText())) {
-			if ("BLUE".equals(mcc.ans)) {
+			if ("BLUE".equals(mcc.answer)) {
 				bgm.playEffect("true.wav");
 				gametrue++;
 				checkLabel.setVisible(true);
@@ -183,7 +183,7 @@ public class MaxColorPanel extends GameView{
 				repaint();
 			}
 		} else if ("btn3".equals(btn.getText())) {
-			if ("YELLOW".equals(mcc.ans)) {
+			if ("YELLOW".equals(mcc.answer)) {
 				bgm.playEffect("true.wav");
 				gametrue++;
 				checkLabel.setVisible(true);

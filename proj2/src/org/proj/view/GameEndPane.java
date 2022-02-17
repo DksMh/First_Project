@@ -43,23 +43,28 @@ public class GameEndPane extends GameView {
 		result.add(gameEndmsg);
 		result.add(gameNumlbl);
 		result.add(gametruelbl);
-		result.add(replayBtn);
 		result.add(goMainBtn);
-
-		replayBtn.setBackground(new Color(82, 206, 105));
-		replayBtn.setFont(new Font("맑은 고딕", Font.BOLD, 18));
-		replayBtn.setForeground(Color.white);
-		replayBtn.setBorderPainted(false);
-		replayBtn.setContentAreaFilled(false);
 
 		goMainBtn.setBackground(new Color(82, 206, 105));
 		goMainBtn.setFont(new Font("맑은 고딕", Font.BOLD, 18));
 		goMainBtn.setForeground(Color.white);
 		goMainBtn.setBorderPainted(false);
 		goMainBtn.setContentAreaFilled(false);
-		
+
+		if(GameState == MiniGame) {
+		result.add(replayBtn);
+		replayBtn.setBackground(new Color(82, 206, 105));
+		replayBtn.setFont(new Font("맑은 고딕", Font.BOLD, 18));
+		replayBtn.setForeground(Color.white);
+		replayBtn.setBorderPainted(false);
+		replayBtn.setContentAreaFilled(false);
 		replayBtn.setBounds(20, 290, 120, 50);
+		
 		goMainBtn.setBounds(160, 290, 120, 50);
+		}
+		else {
+			goMainBtn.setBounds(20, 290, 260, 50);
+		}
 
 		gameEndmsg.setBounds(75, 55, 200, 40);
 		gameNumlbl.setBounds(85, 140, 200, 30);
@@ -85,7 +90,7 @@ public class GameEndPane extends GameView {
 		if(e.getSource() == replayBtn) {
 			recordGameData(NowView);
 			resultPane.setVisible(false);
-			JOptionPane.showMessageDialog(NowView, new JLabel("game Replay", javax.swing.SwingConstants.CENTER),"Replay",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(NowView, new JLabel("다시 시작합니다!", javax.swing.SwingConstants.CENTER),"Replay",JOptionPane.PLAIN_MESSAGE);
 			resultPane.removeAll();
 			NowView.removeAll();
 			Controller c = Controller.getController();
@@ -95,46 +100,51 @@ public class GameEndPane extends GameView {
 	
 	public void recordGameData(GameView view) {
 		String state = view.toString();
+		System.out.println(view.toString());
+		
 		if(GameState == MiniGame) {
 			
 		switch(state) {
 		case PlusMinus:
-			mainGameData.setTotalGame1(mainGameData.getAnsGame1()+gameNum);
+			mainGameData.setTotalGame1(mainGameData.getTotalGame1()+gameNum);
 			mainGameData.setAnsGame1(mainGameData.getAnsGame1()+gametrue);
 			gameNum = 0;
 			gametrue = 0;
 			break;
 		case CARD:
-			mainGameData.setTotalGame2(mainGameData.getAnsGame2()+gameNum);
+			mainGameData.setTotalGame2(mainGameData.getTotalGame2()+gameNum);
 			mainGameData.setAnsGame2(mainGameData.getAnsGame2()+gametrue);
 			gameNum = 0;
 			gametrue = 0;
 			break;
 		case CUP:
-			mainGameData.setTotalGame3(mainGameData.getAnsGame3()+gameNum);
+			mainGameData.setTotalGame3(mainGameData.getTotalGame3()+gameNum);
 			mainGameData.setAnsGame3(mainGameData.getAnsGame3()+gametrue);
 			gameNum = 0;
 			gametrue = 0;
 			break;
 		case LIFE:
-			mainGameData.setTotalGame4(mainGameData.getAnsGame4()+gameNum);
+			mainGameData.setTotalGame4(mainGameData.getTotalGame4()+gameNum);
 			mainGameData.setAnsGame4(mainGameData.getAnsGame4()+gametrue);
 			gameNum = 0;
 			gametrue = 0;
 			break;
 		case SelectColor:
-			mainGameData.setTotalGame5(mainGameData.getAnsGame5()+gameNum);
+			mainGameData.setTotalGame5(mainGameData.getTotalGame5()+gameNum);
 			mainGameData.setAnsGame5(mainGameData.getAnsGame5()+gametrue);
 			gameNum = 0;
 			gametrue = 0;
 			break;
 		case MaxColor:
-			mainGameData.setTotalGame5(mainGameData.getAnsGame5()+gameNum);
+			mainGameData.setTotalGame5(mainGameData.getTotalGame5()+gameNum);
 			mainGameData.setAnsGame5(mainGameData.getAnsGame5()+gametrue);
 			gameNum = 0;
 			gametrue = 0;
 			break;
 		}
+	}else {
+		gameNum = 0;
+		gametrue = 0;
 	}
 	}
 	@Override

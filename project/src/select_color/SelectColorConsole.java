@@ -12,7 +12,6 @@ public class SelectColorConsole {
 
 	// 색깔의 배열
 	int[] arrBtn = new int[3]; // 버튼의 배열
-	
 
 	int ansColor; // 정답(글자와 버튼색이 같음)
 	int ansLoc; // 정답위치(정답위치가 일정함을 방지하기위해서)
@@ -48,7 +47,7 @@ public class SelectColorConsole {
 	public Color paintTxt() {
 		int paintColor; // 글자색
 		int num1;
-		
+
 		while (true) {
 			paintColor = (int) (Math.random() * 7); // 컬러 수여서 변동가능
 			if (ansColor == paintColor) {
@@ -82,7 +81,7 @@ public class SelectColorConsole {
 	public void button() {
 		for (int i = 0; i < arrBtn.length; i++) {
 			int otherColor; // 정답이 아닌 버튼색깔
-			
+
 			// 정답을 제외한 버튼의 색깔지정하는 부분
 			// 정답과 같으면 다시 위로 올라가서 for문을 돌아라
 			if (i == ansLoc) {
@@ -118,6 +117,25 @@ public class SelectColorConsole {
 //			numToColor();
 //		}
 	}
+
+	// 숫자를 글자(영어)로 바꾸는 함수
+//		public String numToColor() {
+//			if(num == 0) {
+//				return "RED";
+//			} else if(num == 1) {
+//				return "ORANGE";
+//			} else if(num == 2) {
+//				return "YELLOW";
+//			} else if(num == 3) {
+//				return "GREEN";
+//			} else if(num == 4) {
+//				return "BLUE";
+//			} else if(num == 5) {
+//				return "PINK";
+//			} else  {
+//				return "MAGENTA"; // 보라색으로 수정시 수정해주기
+//			}
+//		}
 
 	// 숫자를 글자(한국어)로 바꾸는 함수
 	public String numToColorKor(int num) {

@@ -218,7 +218,7 @@ public class PlusMinus extends GameView {
 
 	public void next() {
 		// 딜레이 1.5초 주고 다음게임 시작
-		timer = new Timer(2000, new ActionListener() {
+		timer = new Timer(1500, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (GameState == MiniGame) {

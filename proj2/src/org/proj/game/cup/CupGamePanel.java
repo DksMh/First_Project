@@ -323,10 +323,10 @@ public class CupGamePanel extends GameView {
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton) e.getSource();
 
+		if (click == 1) {
+			return;
+		}
 		if (cups[0] == btn) {
-			if (click == 1) {
-				return;
-			}
 			bgm.playEffect("false.wav");
 			cupUp(0);
 			labelBorder(flag, xLabel, cups[0]);

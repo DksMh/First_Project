@@ -11,7 +11,7 @@ public class ConnectionDB {
 		String port = "3306";
 		String db = "projdata"; 
 		String url = String.format("%s%s:%s/%s",protocol,ip,port,db);
-		String user = "root";
+		String user = "proj";
 		String password = "1234";
 		
 		try {

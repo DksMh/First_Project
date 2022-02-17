@@ -1,5 +1,7 @@
 package org.proj.game.color;
 
+import static org.proj.Resource.bgm;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -29,7 +31,6 @@ public class GameHowTo_sc extends JPanel implements ActionListener {
 	private JButton prev;
 	public JButton exit;
 	private JToggleButton soundBtn;
-	private Clip clip;
 	private Font font1;
 
 	int count = 0;
@@ -130,37 +131,26 @@ public class GameHowTo_sc extends JPanel implements ActionListener {
 		bgSkPan.add(pan3);
 	}
 
-	// 음악 재생 메서드
-	public void Play(String fileName) {
-		try {
-			AudioInputStream ais = AudioSystem.getAudioInputStream(new File(fileName));
-			clip = AudioSystem.getClip();
-			clip.open(ais);
-			clip.start();
-		} catch (Exception ex) {
-		}
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == prev) {
-			if(clip != null) {
-				clip.stop();
+			if(bgm.clipNarr != null) {
+				bgm.clipNarr.stop();
 			}
 			soundBtn.setSelected(false);
 			count--;
 		}
 		if (e.getSource() == next) {
-			if(clip != null) {
-				clip.stop();
+			if(bgm.clipNarr != null) {
+				bgm.clipNarr.stop();
 			}
 			soundBtn.setSelected(false);
 			count++;
 		}
 		
 		if(e.getSource() == exit) {
-			if(clip != null) {
-				clip.stop();
+			if(bgm.clipNarr != null) {
+				bgm.clipNarr.stop();
 			}
 			soundBtn.setSelected(false);
 		}
@@ -168,13 +158,13 @@ public class GameHowTo_sc extends JPanel implements ActionListener {
 		if (e.getSource() == soundBtn) {
 			if (soundBtn.isSelected() == true) {
 				if (count == 0) {
-					Play("sound/color/selectColor01.wav");
+					bgm.playNar("color/selectColor01.wav");
 				} else if (count == 1) {
-					Play("sound/color/selectColor02.wav");
+					bgm.playNar("color/selectColor02.wav");
 				}
 			} else {
-				if(clip != null) {
-					clip.stop();
+				if(bgm.clipNarr != null) {
+					bgm.clipNarr.stop();
 				}
 			}
 		}

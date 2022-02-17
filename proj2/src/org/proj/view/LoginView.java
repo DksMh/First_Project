@@ -253,17 +253,11 @@ public class LoginView extends GameView{
 			String checkid = textid.getText();
 			if (checkid.length() != 0) {
 				Controller c = Controller.getController();
-				boolean result = c.idcheck(checkid);
+				c.idcheck(checkid);
 
-				if (result) {
-					signupState = true;
-					JOptionPane.showMessageDialog(this, new JLabel("사용할 수 있는 아이디입니다!", javax.swing.SwingConstants.CENTER), "중복확인",JOptionPane.PLAIN_MESSAGE);
-				} else {
-					signupState = false;
-					JOptionPane.showMessageDialog(this, new JLabel("사용할 수 없는 아이디입니다!", javax.swing.SwingConstants.CENTER), "중복확인",JOptionPane.PLAIN_MESSAGE);
-				}
 			}else {
-				JOptionPane.showMessageDialog(this, new JLabel("아이디를 입력해주세요.", javax.swing.SwingConstants.CENTER), "중복확인",JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(this, new JLabel("아이디를 입력해주세요.", 
+						javax.swing.SwingConstants.CENTER), "중복확인",JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 
@@ -277,7 +271,8 @@ public class LoginView extends GameView{
 				try {
 					newAge = Integer.parseInt(textage.getText());
 				} catch (NumberFormatException e0) {
-					JOptionPane.showMessageDialog(this,  new JLabel("나이는 숫자만 입력하세요!", javax.swing.SwingConstants.CENTER),"회원가입",JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(this,  new JLabel("나이는 숫자만 입력하세요!", 
+							javax.swing.SwingConstants.CENTER),"회원가입",JOptionPane.PLAIN_MESSAGE);
 				}
 
 				if (newName.length() != 0 && newId.length() != 0 && newPw.length() != 0
@@ -294,10 +289,12 @@ public class LoginView extends GameView{
 					}
 					signupState = false;
 				} else {
-					JOptionPane.showMessageDialog(this,  new JLabel("모든 정보를 입력해 주세요", javax.swing.SwingConstants.CENTER),"회원가입",JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(this,  new JLabel("모든 정보를 입력해 주세요", 
+							javax.swing.SwingConstants.CENTER),"회원가입",JOptionPane.PLAIN_MESSAGE);
 				}
 			} else {
-				JOptionPane.showMessageDialog(this,  new JLabel("ID 중복체크를 해주세요!", javax.swing.SwingConstants.CENTER),"회원가입",JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(this,  new JLabel("ID 중복체크를 해주세요!", 
+						javax.swing.SwingConstants.CENTER),"회원가입",JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 		if(e.getSource() == passLookBtn) {
@@ -326,6 +323,16 @@ public class LoginView extends GameView{
 			repaint();
 		}
 
+	}
+	
+	public void respidcheck(boolean approval) {
+		if(approval) {
+			signupState = true;
+			JOptionPane.showMessageDialog(this, new JLabel("사용할 수 있는 아이디입니다!", javax.swing.SwingConstants.CENTER), "중복확인",JOptionPane.PLAIN_MESSAGE);
+		}else {
+			signupState = false;
+			JOptionPane.showMessageDialog(this, new JLabel("사용할 수 없는 아이디입니다!", javax.swing.SwingConstants.CENTER), "중복확인",JOptionPane.PLAIN_MESSAGE);
+		}
 	}
 	public String toBGM() {
 		return "main.wav";

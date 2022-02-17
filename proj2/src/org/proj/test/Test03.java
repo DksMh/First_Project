@@ -1,4 +1,4 @@
-package test;
+package org.proj.test;
 
 import java.io.File;
 import javax.sound.sampled.AudioSystem;

@@ -30,35 +30,24 @@ public class GraphPanel extends JPanel {
    private List<Double> scores;
    private List<String> date;
    private int age;
-   private static HashMap<Integer, Integer> avg = new HashMap<>();
-  
-   static {
-	   avg.put(60,90);
-	   avg.put(70,85);
-	   avg.put(80,80);
-	   avg.put(90,75);
-   }
+   private double ageData;
+
    
-   public GraphPanel(List<Double> scores, List<String> date, int age) {
+   public GraphPanel(List<Double> scores, List<String> date, int age, double ageData) {
       this.scores = scores;
       this.date = date;	
       this.setBackground(Color.white);
       this.age = age;
+      this.ageData = ageData;
       
-      underAvgNum = 0;
-      for (int i = 0; i < scores.size(); i++) {
-    	  if(scores.get(i)<avg.get(age)) {
-         	 underAvgNum++;
-          }
-      }
    }
 
    @Override
 //   protected void paintComponent(Graphics g) { // 스윙 컴포넌트가 자신의 모양을 그리는 메소드
+
    public void paint(Graphics g) {
-//	  super.paintComponent(g);
 	   super.paint(g);
-	  Graphics2D g2 = (Graphics2D) g; // 그림의 외곽선을 부드럽게 하기 (50~51) 줄 세트
+	  Graphics2D g2 = (Graphics2D) g;
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
       double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (scores.size() - 1);
@@ -69,12 +58,14 @@ public class GraphPanel extends JPanel {
       for (int i = 0; i < scores.size(); i++) {
          int x1 = (int) (i * xScale + padding + labelPadding);
          int y1 = (int) ((100 - scores.get(i)) * yScale + padding);
-         if(scores.get(i)<avg.get(age)) {
-        	 underAvgNum++;
-         }
          graphPoints.add(new Point(x1, y1));
       }
-
+     // .....중략
+      
+      
+      
+      
+      
       // draw white background
       g2.setColor(Color.white); // 배경화면
       g2.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding,
@@ -150,13 +141,13 @@ public class GraphPanel extends JPanel {
       for (int i = 0; i < graphPoints.size() - 1; i++) {
          int x1 = graphPoints.get(i).x;
          // 80은 평균점수
-         int y1 = (int) ((100-avg.get(age)) * yScale + padding);
+         int y1 = (int) ((100-ageData) * yScale + padding);
          int x2 = graphPoints.get(i + 1).x;
-         int y2 = (int) ((100-avg.get(age)) * yScale + padding);
+         int y2 = (int) ((100-ageData) * yScale + padding);
          g2.drawLine(x1, y1, x2, y2);
       }
-      String str = age+"대 평균 성공률";
-      g2.drawString(str, graphPoints.get(graphPoints.size()-2).x, (int) ((100-avg.get(age)) * yScale + padding) - 4);
+      String str = age+"대 위험수준";
+      g2.drawString(str, graphPoints.get(graphPoints.size()-2).x, (int) ((100-ageData) * yScale + padding) - 4);
    }
 
 //   private static void createAndShowGui() {

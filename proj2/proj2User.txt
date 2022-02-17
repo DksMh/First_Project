@@ -1,0 +1,12 @@
+create table user(
+no int not null primary key auto_increment,
+name varchar(20) not null,
+id varchar(20) not null,
+password varchar(20) not null,
+age int not null
+);
+
+
+insert into user(name, id, password, age) values ('saram1', 'user1', 'user1', 62);
+insert into user(name, id, password, age) values ('saram2', 'user2', 'user2', 75);
+insert into user(name, id, password, age) values ('saram3', 'user3', 'user3', 69);

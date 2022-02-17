@@ -4,6 +4,7 @@ import static org.proj.Resource.FRAME_HEIGHT;
 import static org.proj.Resource.FRAME_WIDTH;
 import static org.proj.Resource.*;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 
@@ -55,8 +56,9 @@ public class RecordView extends GameView{
 	
 	
 	public void displaySetting() {
-		JLabel title = new JLabel("성적확인");
+		JLabel title = new JLabel("확인해볼까요?");
 		title.setFont(new Font("맑은 고딕", Font.BOLD, 40));
+		title.setForeground(Color.white);
 		
 		cal.setVisible(false);
 		
@@ -69,7 +71,7 @@ public class RecordView extends GameView{
 		background.add(backBtn);
 		background.add(calBtn);
 		background.add(title);
-		title.setBounds(30, 20, 200,40);
+		title.setBounds(FRAME_WIDTH/2-130, 80, 260,40);
 		
 		pulusminusRecordBtn.setBorderPainted(false);    
 		pulusminusRecordBtn.setContentAreaFilled(false);
@@ -128,6 +130,7 @@ public class RecordView extends GameView{
 			c.Viewchange(GameRecordPage);
 		}
 		if(e.getSource() == calBtn) {
+			cal.removeAll();
 			cal.display();
 			
 			backBtn.setEnabled(false);

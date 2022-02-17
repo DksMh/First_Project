@@ -33,7 +33,7 @@ public class SelectColorPanel extends GameView{
 	private JButton btn3;
 
 	private Color color;
-	private EmptyBorder b1;
+	private EmptyBorder border;
 
 	private ImageIcon checkIcon;
 	private ImageIcon xIcon;
@@ -106,10 +106,10 @@ public class SelectColorPanel extends GameView{
 		btn1.setForeground(color);
 		btn2.setForeground(color);
 		btn3.setForeground(color);
-		b1 = new EmptyBorder(5, 3, 5, 0);
-		btn1.setBorder(b1);
-		btn2.setBorder(b1);
-		btn3.setBorder(b1);
+		border = new EmptyBorder(5, 3, 5, 0);
+		btn1.setBorder(border);
+		btn2.setBorder(border);
+		btn3.setBorder(border);
 		btn1.setBounds(100, 200, 115, 150);
 		btn2.setBounds(303, 200, 115, 150);
 		btn3.setBounds(503, 200, 115, 150);
